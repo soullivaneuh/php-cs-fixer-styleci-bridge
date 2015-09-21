@@ -83,3 +83,31 @@ return Config::create()
     ->setUsingCache(true)
 ;
 ```
+
+### Header comment
+
+Unfortunately, header comment option [is not available](https://twitter.com/soullivaneuh/status/644795113399582720) on StyleCI config file.
+ 
+You will have to copy it from StyleCI web interface and set it manually.
+
+```php
+<?php
+
+use SLLH\StyleCIBridge\ConfigBridge;
+use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+
+$header = <<<EOF
+This file is part of the dummy package.
+
+(c) John Doe <john@doe.com>
+
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
+EOF;
+
+HeaderCommentFixer::setHeader($header);
+
+return ConfigBridge::create();
+```
+
+The config bridge will automatically detect the fixer and add it on CS configuration.
