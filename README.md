@@ -6,6 +6,21 @@ This library permits to generate php-cs-fixer configuration directly from your `
 
 With that, you will avoid the pain of both config files maintenance.
 
+[![Latest Stable Version](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/v/stable)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
+[![Latest Unstable Version](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/v/unstable)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
+[![License](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/license)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
+[![Dependency Status](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/badge.svg)](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge)
+[![Reference Status](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/reference_badge.svg)](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/references)
+
+[![Total Downloads](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/downloads)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
+[![Monthly Downloads](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/d/monthly)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
+[![Daily Downloads](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/d/daily)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
+
+[![Build Status](https://travis-ci.org/Soullivaneuh/php-cs-fixer-styleci-bridge.svg?branch=master)](https://travis-ci.org/Soullivaneuh/php-cs-fixer-styleci-bridge)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/?branch=master)
+[![Code Climate](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/gpa.svg)](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge)
+[![Coverage Status](https://coveralls.io/repos/Soullivaneuh/php-cs-fixer-styleci-bridge/badge.svg?branch=master)](https://coveralls.io/r/Soullivaneuh/php-cs-fixer-styleci-bridge?branch=master)
+
 ## Installation
 
 Include this library on your dev dependencies:
