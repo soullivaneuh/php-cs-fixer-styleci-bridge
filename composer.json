@@ -11,7 +11,8 @@
     ],
     "require": {
         "php": ">=5.3",
-        "symfony/yaml": "~2.3"
+        "symfony/yaml": "~2.3",
+        "symfony/dependency-injection": "~2.3"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "~1.9",
