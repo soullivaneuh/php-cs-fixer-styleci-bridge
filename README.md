@@ -33,6 +33,23 @@ use SLLH\StyleCIBridge\ConfigBridge;
 return ConfigBridge::create();
 ```
 
+With this configuration, the configuration bridge will just parse your `.styleci.yml` file. Sample working file:
+
+```yaml
+preset: symfony
+
+enabled:
+  - align_double_arrow
+  - newline_after_open_tag
+  - ordered_use
+  - long_array_syntax
+
+disabled:
+  - psr0
+  - unalign_double_arrow
+  - unalign_equals
+```
+
 ### Directories options
 
 You can change default repository of your `.styleci.yml` file and directories for the CS Finder directly on `ConfigBridge::create` method or constructor.
