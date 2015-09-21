@@ -33,7 +33,9 @@ use SLLH\StyleCIBridge\ConfigBridge;
 return ConfigBridge::create();
 ```
 
-With this configuration, the configuration bridge will just parse your `.styleci.yml` file. Sample working file:
+With this configuration, the configuration bridge will just parse your `.styleci.yml` file.
+
+Sample working file:
 
 ```yaml
 preset: symfony
