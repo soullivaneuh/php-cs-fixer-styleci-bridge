@@ -8,6 +8,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
+use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
 use Symfony\CS\FixerInterface;
 
 /**
@@ -100,14 +101,23 @@ final class ConfigBridge
         return $validPresets[$preset];
     }
 
+    /**
+     * @return string[]
+     */
     public function getFixers()
     {
-        return array_merge(
+        $fixers =  array_merge(
             isset($this->styleCIConfig['enabled']) ? $this->styleCIConfig['enabled'] : array(),
             isset($this->styleCIConfig['disabled']) ? array_map(function ($disabledFixer) {
                 return '-'.$disabledFixer;
             }, $this->styleCIConfig['disabled']) : array()
         );
+
+        if (!empty(HeaderCommentFixer::getHeader())) {
+            array_push($fixers, 'header_comment');
+        }
+
+        return $fixers;
     }
 
     private function parseStyleCIConfig()
