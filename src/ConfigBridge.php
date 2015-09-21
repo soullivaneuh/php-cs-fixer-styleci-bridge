@@ -113,7 +113,7 @@ final class ConfigBridge
             }, $this->styleCIConfig['disabled']) : array()
         );
 
-        if (!empty(HeaderCommentFixer::getHeader())) {
+        if (HeaderCommentFixer::getHeader()) {
             array_push($fixers, 'header_comment');
         }
 
