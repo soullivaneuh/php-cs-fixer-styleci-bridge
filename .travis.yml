@@ -18,10 +18,15 @@ matrix:
   include:
     - php: 5.3
       env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: 5.6
+      env: PHP_CS_FIXER_VERSION=1.*
+    - php: 5.6
+      env: PHP_CS_FIXER_VERSION=2.*@dev
   allow_failures:
     - php: nightly
     - php: hhvm
     - php: hhvm-nightly
+    - env: PHP_CS_FIXER_VERSION=2.*@dev
 
 sudo: false
 
@@ -34,6 +39,7 @@ before_script:
   - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
   - composer global require phpunit/phpunit --no-update
   - composer global update --prefer-dist --no-interaction
+  - if [ "$PHP_CS_FIXER_VERSION" != "" ]; then composer require "fabpot/php-cs-fixer:${PHP_CS_FIXER_VERSION}" --no-update; fi;
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script: make test
