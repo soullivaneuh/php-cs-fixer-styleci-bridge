@@ -21,6 +21,10 @@ With that, you will avoid the pain of both config files maintenance.
 [![Code Climate](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/gpa.svg)](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge)
 [![Coverage Status](https://coveralls.io/repos/Soullivaneuh/php-cs-fixer-styleci-bridge/badge.svg?branch=master)](https://coveralls.io/r/Soullivaneuh/php-cs-fixer-styleci-bridge?branch=master)
 
+## Who is using this?
+
+You can see which projects are using this package on the dedicated [Packagist page](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge/dependents).
+
 ## Installation
 
 Include this library on your dev dependencies:
