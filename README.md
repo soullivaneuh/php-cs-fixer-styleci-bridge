@@ -9,7 +9,7 @@ With that, you will avoid the pain of both config files maintenance.
 [![Latest Stable Version](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/v/stable)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
 [![Latest Unstable Version](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/v/unstable)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
 [![License](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/license)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
-[![Dependency Status](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/badge.svg)](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge)
+[![Dependency Status](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/1.0.0/badge.svg)](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge)
 [![Reference Status](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/reference_badge.svg)](https://www.versioneye.com/php/sllh:php-cs-fixer-styleci-bridge/references)
 
 [![Total Downloads](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/downloads)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
