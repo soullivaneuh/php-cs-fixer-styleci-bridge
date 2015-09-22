@@ -20,6 +20,7 @@ With that, you will avoid the pain of both config files maintenance.
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/?branch=master)
 [![Code Climate](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/gpa.svg)](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge)
 [![Coverage Status](https://coveralls.io/repos/Soullivaneuh/php-cs-fixer-styleci-bridge/badge.svg?branch=master)](https://coveralls.io/r/Soullivaneuh/php-cs-fixer-styleci-bridge?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f04c9b72-91a8-4ad7-9e7f-ce6dfc66df78/mini.png)](https://insight.sensiolabs.com/projects/f04c9b72-91a8-4ad7-9e7f-ce6dfc66df78)
 
 ## Who is using this?
 
