@@ -2,7 +2,10 @@
 
 namespace SLLH\StyleCIBridge;
 
+use SLLH\StyleCIBridge\Exception\FixersConfigException;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
+use SLLH\StyleCIBridge\Exception\PresetConfigException;
+use SLLH\StyleCIBridge\StyleCI\Fixers;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
@@ -55,9 +58,8 @@ final class ConfigBridge
 
         return Config::create()
             ->finder($bridge->getFinder())
-            ->level($bridge->getLevel())
-            ->fixers($bridge->getFixers())
-        ;
+            ->level(FixerInterface::NONE_LEVEL)
+            ->fixers($bridge->getFixers());
     }
 
     /**
@@ -81,9 +83,13 @@ final class ConfigBridge
 
     /**
      * @return int
+     *
+     * @deprecated since 1.1, to be removed in 2.0
      */
     public function getLevel()
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since version 1.1 and will be removed in 2.0.', E_USER_DEPRECATED);
+
         if (!isset($this->styleCIConfig['preset'])) {
             throw new LevelConfigException('You must define a preset on StyleCI configuration file.');
         }
@@ -106,11 +112,21 @@ final class ConfigBridge
      */
     public function getFixers()
     {
-        $fixers =  array_merge(
-            isset($this->styleCIConfig['enabled']) ? $this->styleCIConfig['enabled'] : array(),
-            isset($this->styleCIConfig['disabled']) ? array_map(function ($disabledFixer) {
+        $presetFixers = $this->getPresetFixers();
+        $enabledFixer = isset($this->styleCIConfig['enabled']) ? $this->styleCIConfig['enabled'] : array();
+        $disabledFixer = isset($this->styleCIConfig['disabled']) ? $this->styleCIConfig['disabled'] : array();
+
+        $invalidFixers = array_diff(array_merge($enabledFixer, $disabledFixer), Fixers::$valid);
+        if (count($invalidFixers) > 0) {
+            throw new FixersConfigException(sprintf('The following fixers are invalid: "%s".', implode('", "', $invalidFixers)));
+        }
+
+        $fixers = array_merge(
+            $enabledFixer,
+            array_map(function ($disabledFixer) {
                 return '-'.$disabledFixer;
-            }, $this->styleCIConfig['disabled']) : array()
+            }, $disabledFixer),
+            array_diff($presetFixers, $disabledFixer) // Remove disabled fixers from preset
         );
 
         if (HeaderCommentFixer::getHeader()) {
@@ -118,6 +134,30 @@ final class ConfigBridge
         }
 
         return $fixers;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getPresetFixers()
+    {
+        if (!isset($this->styleCIConfig['preset'])) {
+            throw new PresetConfigException('You must define a preset on StyleCI configuration file.');
+        }
+
+        $preset = $this->styleCIConfig['preset'];
+        $validPresets = array(
+            'psr1'        => Fixers::$psr1_fixers,
+            'psr2'        => Fixers::$psr2_fixers,
+            'symfony'     => Fixers::$symfony_fixers,
+            'laravel'     => Fixers::$laravel_fixers,
+            'recommended' => Fixers::$recommended_fixers,
+        );
+        if (!in_array($preset, array_keys($validPresets))) {
+            throw new PresetConfigException(sprintf('Invalid preset "%s". Must be one of "%s".', $preset, implode('", "', array_keys($validPresets))));
+        }
+
+        return $validPresets[$preset];
     }
 
     private function parseStyleCIConfig()

@@ -1,0 +1,29 @@
+<?php
+
+namespace SLLH\StyleCIBridge\StyleCI;
+
+/**
+ * This class was auto-generated from StyleCI/Config repository.
+ *
+ * @link https://github.com/StyleCI/Config/blob/master/src/Config.php
+ */
+class Fixers
+{
+{% for group,fixers in fixersTab %}
+    /**
+     * @var string[]
+     */
+    public static ${{ group }} = array(
+{% for fixer in fixers %}
+{% if fixer['key'] is defined %}
+        '{{ fixer['key'] }}' => '{{ fixer['name'] }}',
+{% else %}
+        '{{ fixer['name'] }}',
+{% endif %}
+{% endfor %}
+    );
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}
+}
