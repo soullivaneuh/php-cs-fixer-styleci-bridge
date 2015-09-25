@@ -16,3 +16,5 @@ disabled:
 finder:
   not-name:
     - "*.php.twig"
+  not-path:
+    - "src/StyleCI/Fixers.php"

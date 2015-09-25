@@ -42,7 +42,9 @@ before_script:
   - if [ "$PHP_CS_FIXER_VERSION" != "" ]; then composer require "fabpot/php-cs-fixer:${PHP_CS_FIXER_VERSION}" --no-update; fi;
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
-script: make test
+script:
+  - make test
+  - ./bridge styleci:config:check
 
 after_script:
   - php vendor/bin/coveralls -v

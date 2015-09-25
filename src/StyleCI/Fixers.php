@@ -380,12 +380,12 @@ class Fixers
      * @var string[]
      */
     public static $conflicts = array(
-        'concat_with_spaces'              => 'concat_without_spaces',
-        'long_array_syntax'               => 'short_array_syntax',
+        'concat_with_spaces' => 'concat_without_spaces',
+        'long_array_syntax' => 'short_array_syntax',
         'no_blank_lines_before_namespace' => 'single_blank_line_before_namespace',
-        'phpdoc_var_to_type'              => 'phpdoc_type_to_var',
-        'psr0'                            => 'psr4',
-        'unalign_double_arrow'            => 'align_double_arrow',
-        'unalign_equals'                  => 'align_equals',
+        'phpdoc_var_to_type' => 'phpdoc_type_to_var',
+        'psr0' => 'psr4',
+        'unalign_double_arrow' => 'align_double_arrow',
+        'unalign_equals' => 'align_equals',
     );
 }

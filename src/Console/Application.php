@@ -2,6 +2,7 @@
 
 namespace SLLH\StyleCIBridge\Console;
 
+use SLLH\StyleCIBridge\Console\Command\StyleCIConfigCheckCommand;
 use SLLH\StyleCIBridge\Console\Command\StyleCIConfigUpdateCommand;
 use Symfony\Component\Console\Application as BaseApplication;
 
@@ -18,5 +19,6 @@ class Application extends BaseApplication
         parent::__construct();
 
         $this->add(new StyleCIConfigUpdateCommand());
+        $this->add(new StyleCIConfigCheckCommand());
     }
 }
