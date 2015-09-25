@@ -132,6 +132,8 @@ You will have to copy it from StyleCI web interface and set it manually.
 ```php
 <?php
 
+require_once './vendor/autoload.php';
+
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
 
