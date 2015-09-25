@@ -116,10 +116,15 @@ final class ConfigBridge
         $enabledFixer = isset($this->styleCIConfig['enabled']) ? $this->styleCIConfig['enabled'] : array();
         $disabledFixer = isset($this->styleCIConfig['disabled']) ? $this->styleCIConfig['disabled'] : array();
 
-        $invalidFixers = array_diff(array_merge($enabledFixer, $disabledFixer), Fixers::$valid);
+        // Aliases should be included as valid fixers
+        $invalidFixers = array_diff(array_merge($enabledFixer, $disabledFixer), array_merge(Fixers::$valid, array_keys(Fixers::$aliases)));
         if (count($invalidFixers) > 0) {
             throw new FixersConfigException(sprintf('The following fixers are invalid: "%s".', implode('", "', $invalidFixers)));
         }
+
+        $presetFixers = $this->resolveAliases($presetFixers);
+        $enabledFixer = $this->resolveAliases($enabledFixer);
+        $disabledFixer = $this->resolveAliases($disabledFixer);
 
         $fixers = array_merge(
             $enabledFixer,
@@ -158,6 +163,28 @@ final class ConfigBridge
         }
 
         return $validPresets[$preset];
+    }
+
+    /**
+     * Adds both aliases and real fixers if set. PHP-CS-Fixer would not take care if not existing.
+     * Better compatibility between PHP-CS-Fixer 1.x and 2.x.
+     *
+     * @param string[] $fixers
+     *
+     * @return string[]
+     */
+    private function resolveAliases(array $fixers)
+    {
+        foreach (Fixers::$aliases as $alias => $name) {
+            if (in_array($alias, $fixers, true) && !in_array($name, $fixers, true)) {
+                array_push($fixers, $name);
+            }
+            if (in_array($name, $fixers, true) && !in_array($alias, $fixers, true)) {
+                array_push($fixers, $alias);
+            }
+        }
+
+        return $fixers;
     }
 
     private function parseStyleCIConfig()
