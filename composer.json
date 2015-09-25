@@ -1,7 +1,7 @@
 {
     "name": "sllh/php-cs-fixer-styleci-bridge",
     "description": "Auto configure PHP-CS-Fixer from StyleCI config file",
-    "keywords": ["PHP-CS-Fixer", "StyleCI", "PSR-1", "PSR-2", "Symfony", "Laravel", "configuration"],
+    "keywords": ["PHP-CS-Fixer", "StyleCI", "PSR", "PSR-1", "PSR-2", "PSR-4", "Symfony", "Laravel", "configuration"],
     "type": "library",
     "license": "MIT",
     "authors": [
