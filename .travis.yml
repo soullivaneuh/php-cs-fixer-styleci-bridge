@@ -44,6 +44,8 @@ before_script:
 
 script:
   - make test
+  # Nightly builded with https://nightli.es/
+  # See also: https://github.com/travis-ci/travis-ci/issues/582#issuecomment-124136045
   - ./bridge styleci:config:check
 
 after_script:
