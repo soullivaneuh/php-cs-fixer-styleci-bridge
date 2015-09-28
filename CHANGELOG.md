@@ -1,6 +1,6 @@
 # CHANGELOG
 
-* 1.2.1 (2015-??-??)
+* 1.2.1 (2015-09-28)
 
  * Fix some BC breaks with PHP-CS-Fixer 2.0
 
