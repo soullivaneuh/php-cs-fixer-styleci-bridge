@@ -56,9 +56,15 @@ final class ConfigBridge
     {
         $bridge = new static($styleCIConfigDir, $finderDirs);
 
-        return Config::create()
+        $config = Config::create();
+
+        // PHP-CS-Fixer 1.x BC
+        if (method_exists($config, 'level')) {
+            $config->level(FixerInterface::NONE_LEVEL);
+        }
+
+        return $config
             ->finder($bridge->getFinder())
-            ->level(FixerInterface::NONE_LEVEL)
             ->fixers($bridge->getFixers());
     }
 
