@@ -98,7 +98,8 @@ require_once './vendor/autoload.php';
 use SLLH\StyleCIBridge\ConfigBridge;
 
 return ConfigBridge::create()
-    ->setUsingCache(true) // Enable the cache
+    ->setUsingCache(true)       // Enable the cache
+    ->setRiskyAllowed(true)     // Since PHP-CS-Fixer 2.0
 ;
 ```
 
