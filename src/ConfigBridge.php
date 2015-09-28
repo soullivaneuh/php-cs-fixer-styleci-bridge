@@ -2,10 +2,10 @@
 
 namespace SLLH\StyleCIBridge;
 
-use SLLH\StyleCIBridge\Exception\FixersConfigException;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
-use SLLH\StyleCIBridge\Exception\PresetConfigException;
+use SLLH\StyleCIBridge\StyleCI\Configuration;
 use SLLH\StyleCIBridge\StyleCI\Fixers;
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -97,10 +97,10 @@ final class ConfigBridge
     public function getFinder()
     {
         $finder = DefaultFinder::create()->in($this->finderDirs);
-        if (isset($this->styleCIConfig['finder']) && is_array($this->styleCIConfig['finder'])) {
+        if (isset($this->styleCIConfig['finder'])) {
             $finderConfig = $this->styleCIConfig['finder'];
             foreach ($finderConfig as $key => $values) {
-                $finderMethod = Container::camelize(str_replace('-', '_', $key));
+                $finderMethod = Container::camelize($key);
                 foreach ($values as $value) {
                     $finder->$finderMethod($value);
                 }
@@ -118,10 +118,6 @@ final class ConfigBridge
     public function getLevel()
     {
         @trigger_error('The '.__METHOD__.' method is deprecated since version 1.1 and will be removed in 2.0.', E_USER_DEPRECATED);
-
-        if (!isset($this->styleCIConfig['preset'])) {
-            throw new LevelConfigException('You must define a preset on StyleCI configuration file.');
-        }
 
         $preset = $this->styleCIConfig['preset'];
         $validPresets = array(
@@ -141,19 +137,9 @@ final class ConfigBridge
      */
     public function getFixers()
     {
-        $presetFixers = $this->getPresetFixers();
-        $enabledFixer = isset($this->styleCIConfig['enabled']) ? $this->styleCIConfig['enabled'] : array();
-        $disabledFixer = isset($this->styleCIConfig['disabled']) ? $this->styleCIConfig['disabled'] : array();
-
-        // Aliases should be included as valid fixers
-        $invalidFixers = array_diff(array_merge($enabledFixer, $disabledFixer), array_merge(Fixers::$valid, array_keys(Fixers::$aliases)));
-        if (count($invalidFixers) > 0) {
-            throw new FixersConfigException(sprintf('The following fixers are invalid: "%s".', implode('", "', $invalidFixers)));
-        }
-
-        $presetFixers = $this->resolveAliases($presetFixers);
-        $enabledFixer = $this->resolveAliases($enabledFixer);
-        $disabledFixer = $this->resolveAliases($disabledFixer);
+        $presetFixers = $this->resolveAliases($this->getPresetFixers());
+        $enabledFixer = $this->resolveAliases($this->styleCIConfig['enabled']);
+        $disabledFixer = $this->resolveAliases($this->styleCIConfig['disabled']);
 
         $fixers = array_merge(
             $enabledFixer,
@@ -205,21 +191,8 @@ final class ConfigBridge
      */
     private function getPresetFixers()
     {
-        if (!isset($this->styleCIConfig['preset'])) {
-            throw new PresetConfigException('You must define a preset on StyleCI configuration file.');
-        }
-
         $preset = $this->styleCIConfig['preset'];
-        $validPresets = array(
-            'psr1'        => Fixers::$psr1_fixers,
-            'psr2'        => Fixers::$psr2_fixers,
-            'symfony'     => Fixers::$symfony_fixers,
-            'laravel'     => Fixers::$laravel_fixers,
-            'recommended' => Fixers::$recommended_fixers,
-        );
-        if (!in_array($preset, array_keys($validPresets))) {
-            throw new PresetConfigException(sprintf('Invalid preset "%s". Must be one of "%s".', $preset, implode('", "', array_keys($validPresets))));
-        }
+        $validPresets = Fixers::getPresets();
 
         return $validPresets[$preset];
     }
@@ -283,7 +256,9 @@ final class ConfigBridge
     private function parseStyleCIConfig()
     {
         if (null === $this->styleCIConfig) {
-            $this->styleCIConfig = Yaml::parse(file_get_contents(sprintf('%s/.styleci.yml', $this->styleCIConfigDir)));
+            $config = Yaml::parse(file_get_contents(sprintf('%s/.styleci.yml', $this->styleCIConfigDir)));
+            $processor = new Processor();
+            $this->styleCIConfig = $processor->processConfiguration(new Configuration(), array('styleci' => $config));
         }
     }
 }
