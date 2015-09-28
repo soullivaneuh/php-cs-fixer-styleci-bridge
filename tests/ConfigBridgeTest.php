@@ -13,14 +13,26 @@ class ConfigBridgeTest extends \PHPUnit_Framework_TestCase
     {
         $config = ConfigBridge::create(__DIR__.'/Fixtures/configs/default');
 
-        $this->assertArraySubset(array(
-            'align_double_arrow',
-            'newline_after_open_tag',
-            'ordered_use',
-            'long_array_syntax',
-            '-psr0',
-            '-unalign_double_arrow',
-            '-unalign_equals',
-        ), $config->getFixers());
+        if (method_exists($config, 'getRules')) {
+            $this->assertArraySubset(array(
+                'align_double_arrow'     => true,
+                'newline_after_open_tag' => true,
+                'ordered_use'            => true,
+                'long_array_syntax'      => true,
+                'psr0'                   => false,
+                'unalign_double_arrow'   => false,
+                'unalign_equals'         => false,
+            ), $config->getRules());
+        } else { // PHP-CS-Fixer 1.x BC
+            $this->assertArraySubset(array(
+                'align_double_arrow',
+                'newline_after_open_tag',
+                'ordered_use',
+                'long_array_syntax',
+                '-psr0',
+                '-unalign_double_arrow',
+                '-unalign_equals',
+            ), $config->getFixers());
+        }
     }
 }
