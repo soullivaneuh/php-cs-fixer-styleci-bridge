@@ -46,7 +46,7 @@ Put the following config on your `.php_cs` file:
 <?php
 
 // Needed to get styleci-bridge loaded
-require_once './vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -79,7 +79,7 @@ You can change default repository of your `.styleci.yml` file and directories fo
 ```php
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -93,7 +93,7 @@ return ConfigBridge::create(__DIR__.'/config', [__DIR__, __DIR__.'../lib']);
 ```php
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -110,7 +110,7 @@ You can also using bridge method, part by part.
 ```php
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Config\Config;
@@ -137,7 +137,7 @@ The config bridge will automatically detect the fixer and add it on CS configura
 ```php
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
@@ -161,7 +161,7 @@ return ConfigBridge::create();
 ```php
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
