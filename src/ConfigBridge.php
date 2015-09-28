@@ -6,12 +6,16 @@ use SLLH\StyleCIBridge\Exception\FixersConfigException;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\Exception\PresetConfigException;
 use SLLH\StyleCIBridge\StyleCI\Fixers;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+use Symfony\CS\FixerFactory;
 use Symfony\CS\FixerInterface;
 
 /**
@@ -19,6 +23,16 @@ use Symfony\CS\FixerInterface;
  */
 final class ConfigBridge
 {
+    /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    /**
+     * @var FixerInterface[]|null
+     */
+    private $availableFixers = null;
+
     /**
      * @var string
      */
@@ -42,7 +56,10 @@ final class ConfigBridge
     {
         $this->styleCIConfigDir = null !== $styleCIConfigDir ? $styleCIConfigDir : getcwd();
         $this->finderDirs = null !== $finderDirs ? $finderDirs : getcwd();
+        $this->output = new ConsoleOutput();
+        $this->output->getFormatter()->setStyle('warning', new OutputFormatterStyle('black', 'yellow'));
 
+        $this->loadAvailableFixers();
         $this->parseStyleCIConfig();
     }
 
@@ -166,9 +183,17 @@ final class ConfigBridge
         $rules = array();
         foreach ($fixers as $fixer) {
             if ('-' === $fixer[0]) {
-                $rules[substr($fixer, 1)] = false;
+                $name = substr($fixer, 1);
+                $enabled = false;
             } else {
-                $rules[$fixer] = true;
+                $name = $fixer;
+                $enabled = true;
+            }
+
+            if ($this->isFixerAvailable($name)) {
+                $rules[$name] = $enabled;
+            } else {
+                $this->output->writeln(sprintf('<warning>Fixer "%s" does not exist, skipping.</warning>', $name));
             }
         }
 
@@ -210,15 +235,49 @@ final class ConfigBridge
     private function resolveAliases(array $fixers)
     {
         foreach (Fixers::$aliases as $alias => $name) {
-            if (in_array($alias, $fixers, true) && !in_array($name, $fixers, true)) {
+            if (in_array($alias, $fixers, true) && !in_array($name, $fixers, true) && $this->isFixerAvailable($name)) {
                 array_push($fixers, $name);
             }
-            if (in_array($name, $fixers, true) && !in_array($alias, $fixers, true)) {
+            if (in_array($name, $fixers, true) && !in_array($alias, $fixers, true) && $this->isFixerAvailable($alias)) {
                 array_push($fixers, $alias);
             }
         }
 
         return $fixers;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
+    private function isFixerAvailable($name)
+    {
+        // PHP-CS-Fixer 1.x BC
+        if (null === $this->availableFixers) {
+            return true;
+        }
+
+        return isset($this->availableFixers[$name]);
+    }
+
+    /**
+     * Can be replaced by Config::getFixersByName if following PR is accepted.
+     *
+     * @link https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/1429
+     */
+    private function loadAvailableFixers()
+    {
+        // Remove rules that not exists
+        if (class_exists('Symfony\CS\FixerFactory')) { // PHP-CS-Fixer 1.x BC
+            $fixerFactory = FixerFactory::create();
+            $fixerFactory->registerBuiltInFixers();
+
+            $this->availableFixers = array();
+            foreach ($fixerFactory->getFixers() as $fixer) {
+                $this->availableFixers[$fixer->getName()] = $fixer;
+            }
+        }
     }
 
     private function parseStyleCIConfig()
