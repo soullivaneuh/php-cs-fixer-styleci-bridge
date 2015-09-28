@@ -130,6 +130,10 @@ Unfortunately, header comment option [is not available](https://twitter.com/soul
  
 You will have to copy it from StyleCI web interface and set it manually.
 
+The config bridge will automatically detect the fixer and add it on CS configuration.
+
+#### PHP-CS-Fixer 1.x
+
 ```php
 <?php
 
@@ -152,4 +156,28 @@ HeaderCommentFixer::setHeader($header);
 return ConfigBridge::create();
 ```
 
-The config bridge will automatically detect the fixer and add it on CS configuration.
+#### PHP-CS-Fixer 2.x
+
+```php
+<?php
+
+require_once './vendor/autoload.php';
+
+use SLLH\StyleCIBridge\ConfigBridge;
+use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+
+$header = <<<EOF
+This file is part of the dummy package.
+
+(c) John Doe <john@doe.com>
+
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
+EOF;
+
+return $config
+    ->setRules(array_merge($config->getRules(), ['header_comment' => ['header' => $header]]))
+;
+```
+
+A discussion is in progress for adding a `Config::addRule` method: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/1428

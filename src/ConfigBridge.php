@@ -63,9 +63,15 @@ final class ConfigBridge
             $config->level(FixerInterface::NONE_LEVEL);
         }
 
+        if (method_exists($config, 'setRules')) {
+            $config->setRules($bridge->getRules());
+        } else { // PHP-CS-Fixer 1.x BC
+            $config->fixers($bridge->getFixers());
+        }
+
         return $config
             ->finder($bridge->getFinder())
-            ->fixers($bridge->getFixers());
+        ;
     }
 
     /**
@@ -140,11 +146,33 @@ final class ConfigBridge
             array_diff($presetFixers, $disabledFixer) // Remove disabled fixers from preset
         );
 
-        if (HeaderCommentFixer::getHeader()) {
+        // PHP-CS-Fixer 1.x BC
+        if (method_exists('Symfony\CS\Fixer\Contrib\HeaderCommentFixer', 'getHeader') && HeaderCommentFixer::getHeader()) {
             array_push($fixers, 'header_comment');
         }
 
         return $fixers;
+    }
+
+    /**
+     * Returns fixers converted to rules for PHP-CS-Fixer 2.x.
+     *
+     * @return array
+     */
+    public function getRules()
+    {
+        $fixers = $this->getFixers();
+
+        $rules = array();
+        foreach ($fixers as $fixer) {
+            if ('-' === $fixer[0]) {
+                $rules[substr($fixer, 1)] = false;
+            } else {
+                $rules[$fixer] = true;
+            }
+        }
+
+        return $rules;
     }
 
     /**
