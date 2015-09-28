@@ -9,7 +9,6 @@ enabled:
   - php_unit_strict
 
 disabled:
-  - psr0
   - unalign_double_arrow
   - unalign_equals
 
