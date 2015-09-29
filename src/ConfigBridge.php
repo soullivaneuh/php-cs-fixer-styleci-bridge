@@ -14,6 +14,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
+use Symfony\CS\Fixer;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
 use Symfony\CS\FixerFactory;
 use Symfony\CS\FixerInterface;
@@ -23,6 +24,8 @@ use Symfony\CS\FixerInterface;
  */
 final class ConfigBridge
 {
+    const CS_FIXER_MIN_VERSION = '1.6.1';
+
     /**
      * @var OutputInterface
      */
@@ -54,6 +57,14 @@ final class ConfigBridge
      */
     public function __construct($styleCIConfigDir = null, $finderDirs = null)
     {
+        if (version_compare(Fixer::VERSION, self::CS_FIXER_MIN_VERSION, '<')) {
+            throw new \RuntimeException(sprintf(
+                'PHP-CS-Fixer v%s is not supported, please upgrade to v%s or higher.',
+                Fixer::VERSION,
+                self::CS_FIXER_MIN_VERSION
+            ));
+        }
+
         $this->styleCIConfigDir = null !== $styleCIConfigDir ? $styleCIConfigDir : getcwd();
         $this->finderDirs = null !== $finderDirs ? $finderDirs : getcwd();
         $this->output = new ConsoleOutput();
