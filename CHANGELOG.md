@@ -1,5 +1,11 @@
 # CHANGELOG
 
+* 1.3.0
+
+ * PHP-CS-Fixer version check.
+ * Use Symfony Config component for `.styleci.yml` parsing.
+ * Manage fixers conflicts.
+
 * 1.2.1 (2015-09-28)
 
  * Fix some BC breaks with PHP-CS-Fixer 2.0.
