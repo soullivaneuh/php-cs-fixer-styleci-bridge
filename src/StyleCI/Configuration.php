@@ -74,6 +74,24 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
+            ->validate()
+                ->ifTrue(function ($config) {
+                    $presets = Fixers::getPresets();
+                    $enabledFixers = array_merge($presets[$config['preset']], $config['enabled']);
+                    $disabledFixers = $config['disabled'];
+                    $fixers = array_diff($enabledFixers, $disabledFixers);
+
+                    // See: https://github.com/StyleCI/Config/blob/f9747aba632aa4d272f212b5b9c9942234f4f074/src/Config.php#L549-L553
+                    foreach (Fixers::$conflicts as $first => $second) {
+                        if (in_array($first, $fixers, true) && in_array($second, $fixers, true)) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                })
+                ->thenInvalid('Conflicted fixers. Check conflicts definition.')
+            ->end()
         ;
 
         return $treeBuilder;

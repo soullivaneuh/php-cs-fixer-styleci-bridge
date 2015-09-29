@@ -2,7 +2,6 @@
 
 namespace SLLH\StyleCIBridge\Tests\StyleCI;
 
-
 use Matthias\SymfonyConfigTest\PhpUnit\AbstractConfigurationTestCase;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
 
@@ -52,10 +51,19 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                     'phpdoc_params',
                 ),
                 'disabled' => array(
-                    'short_array_syntax'
+                    'short_array_syntax',
                 ),
                 'finder' => array(
                     'not-name' => array('*.dummy'),
+                ),
+            )),
+            array(array(
+                'preset'  => 'symfony',
+                'enabled' => array(
+                    'align_double_arrow',
+                ),
+                'disabled' => array(
+                    'unalign_double_arrow',
                 ),
             )),
         );
@@ -89,7 +97,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 'enabled' => false,
             )),
             array(array(
-                'preset'  => 'symfony',
+                'preset'   => 'symfony',
                 'disabled' => false,
             )),
             array(array(
@@ -100,19 +108,31 @@ class ConfigurationTest extends AbstractConfigurationTestCase
                 ),
             )),
             array(array(
-                'preset'  => 'symfony',
+                'preset'   => 'symfony',
                 'disabled' => array(
                     'dummy',
-                    'short_array_syntax'
+                    'short_array_syntax',
                 ),
             )),
             array(array(
                 'preset'  => 'symfony',
-                'finder' => array(
+                'finder'  => array(
                     'not-existing-method' => array('*.dummy'),
                 ),
             )),
+            array(array(
+                'preset'  => 'symfony',
+                'enabled' => array(
+                    'align_double_arrow',
+                ),
+            )),
+            array(array(
+                'preset'  => 'psr1',
+                'enabled' => array(
+                    'no_blank_lines_before_namespace',
+                    'single_blank_line_before_namespace',
+                ),
+            )),
         );
-
     }
 }
