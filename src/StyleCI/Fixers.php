@@ -106,6 +106,7 @@ class Fixers
         'whitespacy_lines',
     );
 
+
     /**
      * @var string[]
      */
@@ -114,6 +115,7 @@ class Fixers
         'psr4',
         'short_tag',
     );
+
 
     /**
      * @var string[]
@@ -140,6 +142,7 @@ class Fixers
         'trailing_spaces',
         'visibility',
     );
+
 
     /**
      * @var string[]
@@ -217,6 +220,7 @@ class Fixers
         'whitespacy_lines',
     );
 
+
     /**
      * @var string[]
      */
@@ -289,6 +293,7 @@ class Fixers
         'visibility',
         'whitespacy_lines',
     );
+
 
     /**
      * @var string[]
@@ -368,6 +373,7 @@ class Fixers
         'whitespacy_lines',
     );
 
+
     /**
      * @var string[]
      */
@@ -375,6 +381,7 @@ class Fixers
         'phpdoc_params' => 'phpdoc_align',
         'join_function' => 'alias_functions',
     );
+
 
     /**
      * @var string[]
@@ -388,4 +395,15 @@ class Fixers
         'unalign_double_arrow' => 'align_double_arrow',
         'unalign_equals' => 'align_equals',
     );
+
+    public static function getPresets()
+    {
+        return array(
+            'psr1' => self::$psr1_fixers,
+            'psr2' => self::$psr2_fixers,
+            'symfony' => self::$symfony_fixers,
+            'laravel' => self::$laravel_fixers,
+            'recommended' => self::$recommended_fixers,
+        );
+    }
 }

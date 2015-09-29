@@ -34,7 +34,15 @@ final class FixersGenerator
     {
         $twig = new \Twig_Environment(new \Twig_Loader_Filesystem(__DIR__.'/..'));
 
-        return $twig->render('StyleCI/Fixers.php.twig', array('fixersTab' => $this->getFixersTab()));
+        $fixersTab = $this->getFixersTab();
+        $presets = array();
+        foreach ($fixersTab as $group => $fixers) {
+            if (strstr($group, '_fixers')) {
+                array_push($presets, str_replace('_fixers', '', $group));
+            }
+        }
+
+        return $twig->render('StyleCI/Fixers.php.twig', array('fixersTab' => $fixersTab, 'presets' => $presets));
     }
 
     /**

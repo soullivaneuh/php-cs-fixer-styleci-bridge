@@ -25,5 +25,14 @@ class Fixers
 {% if not loop.last %}
 
 {% endif %}
+
 {% endfor %}
+    public static function getPresets()
+    {
+        return array(
+{% for preset in presets %}
+            '{{ preset }}' => self::${{ preset }}_fixers,
+{% endfor %}
+        );
+    }
 }
