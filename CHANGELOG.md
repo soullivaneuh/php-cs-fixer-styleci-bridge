@@ -1,6 +1,6 @@
 # CHANGELOG
 
-* 1.3.0
+* 1.3.0 (2015-09-29)
 
  * PHP-CS-Fixer version check.
  * Use Symfony Config component for `.styleci.yml` parsing.
