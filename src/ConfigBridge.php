@@ -113,7 +113,15 @@ final class ConfigBridge
             foreach ($finderConfig as $key => $values) {
                 $finderMethod = Container::camelize($key);
                 foreach ($values as $value) {
-                    $finder->$finderMethod($value);
+                    if (method_exists($finder, $finderMethod)) {
+                        $finder->$finderMethod($value);
+                    } else {
+                        $this->output->writeln(sprintf(
+                            '<warning>Can not apply "%s" finder option with PHP-CS-Fixer v%s. You fixer config may be erroneous. Consider upgrading to fix it.</warning>',
+                            str_replace('_', '-', $key),
+                            Fixer::VERSION
+                        ));
+                    }
                 }
             }
         }
