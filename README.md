@@ -176,7 +176,9 @@ with this source code in the file LICENSE.
 EOF;
 
 return $config
-    ->setRules(array_merge($config->getRules(), ['header_comment' => ['header' => $header]]))
+    ->setRules(array_merge($config->getRules(), array(
+        'header_comment' => array('header' => $header)
+    )))
 ;
 ```
 
