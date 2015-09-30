@@ -19,14 +19,14 @@ matrix:
     - php: 5.3
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 5.6
-      env: PHP_CS_FIXER_VERSION=1.*
+      env: PHP_CS_FIXER_VERSION=2.*
     - php: 5.6
-      env: PHP_CS_FIXER_VERSION=2.*@dev
+      env: PHP_CS_FIXER_VERSION=3.*@dev
   allow_failures:
     - php: nightly
     - php: hhvm
     - php: hhvm-nightly
-    - env: PHP_CS_FIXER_VERSION=2.*@dev
+    - env: PHP_CS_FIXER_VERSION=3.*@dev
 
 sudo: false
 
