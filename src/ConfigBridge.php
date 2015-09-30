@@ -161,15 +161,15 @@ final class ConfigBridge
     public function getFixers()
     {
         $presetFixers = $this->resolveAliases($this->getPresetFixers());
-        $enabledFixer = $this->resolveAliases($this->styleCIConfig['enabled']);
-        $disabledFixer = $this->resolveAliases($this->styleCIConfig['disabled']);
+        $enabledFixers = $this->resolveAliases($this->styleCIConfig['enabled']);
+        $disabledFixers = $this->resolveAliases($this->styleCIConfig['disabled']);
 
         $fixers = array_merge(
-            $enabledFixer,
+            $enabledFixers,
             array_map(function ($disabledFixer) {
                 return '-'.$disabledFixer;
-            }, $disabledFixer),
-            array_diff($presetFixers, $disabledFixer) // Remove disabled fixers from preset
+            }, $disabledFixers),
+            array_diff($presetFixers, $disabledFixers) // Remove disabled fixers from preset
         );
 
         // PHP-CS-Fixer 1.x BC
