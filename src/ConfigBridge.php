@@ -32,9 +32,9 @@ final class ConfigBridge
     private $output;
 
     /**
-     * @var FixerInterface[]|null
+     * @var FixerFactory
      */
-    private $availableFixers = null;
+    private $fixerFactory = null;
 
     /**
      * @var string
@@ -69,8 +69,12 @@ final class ConfigBridge
         $this->finderDirs = null !== $finderDirs ? $finderDirs : getcwd();
         $this->output = new ConsoleOutput();
         $this->output->getFormatter()->setStyle('warning', new OutputFormatterStyle('black', 'yellow'));
+        // PHP-CS-Fixer 1.x BC
+        if (class_exists('Symfony\CS\FixerFactory')) {
+            $this->fixerFactory = FixerFactory::create();
+            $this->fixerFactory->registerBuiltInFixers();
+        }
 
-        $this->loadAvailableFixers();
         $this->parseStyleCIConfig();
     }
 
@@ -246,30 +250,11 @@ final class ConfigBridge
     private function isFixerAvailable($name)
     {
         // PHP-CS-Fixer 1.x BC
-        if (null === $this->availableFixers) {
+        if (null === $this->fixerFactory) {
             return true;
         }
 
-        return isset($this->availableFixers[$name]);
-    }
-
-    /**
-     * Can be replaced by Config::getFixersByName if following PR is accepted.
-     *
-     * @link https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/1429
-     */
-    private function loadAvailableFixers()
-    {
-        // Remove rules that not exists
-        if (class_exists('Symfony\CS\FixerFactory')) { // PHP-CS-Fixer 1.x BC
-            $fixerFactory = FixerFactory::create();
-            $fixerFactory->registerBuiltInFixers();
-
-            $this->availableFixers = array();
-            foreach ($fixerFactory->getFixers() as $fixer) {
-                $this->availableFixers[$fixer->getName()] = $fixer;
-            }
-        }
+        return $this->fixerFactory->hasRule($name);
     }
 
     private function parseStyleCIConfig()
