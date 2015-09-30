@@ -2,6 +2,11 @@
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
-return ConfigBridge::create()
-    ->setUsingCache(true)
-;
+$config = ConfigBridge::create();
+$config->setUsingCache(true);
+
+if (method_exists($config, 'setRiskyAllowed')) {
+    $config->setRiskyAllowed(true);
+}
+
+return $config;
