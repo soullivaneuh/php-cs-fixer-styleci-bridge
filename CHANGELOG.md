@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 1.3.1 (2015-09-30)
+
+ * Use `FixerFactory::hasRule` instead of building our own fixers array by name.
+
 * 1.3.0 (2015-09-29)
 
  * PHP-CS-Fixer version check.
