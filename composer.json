@@ -35,5 +35,10 @@
         "branch-alias": {
             "dev-master": "1.x-dev"
         }
+    },
+    "config": {
+        "platform": {
+            "php": "5.4"
+        }
     }
 }
