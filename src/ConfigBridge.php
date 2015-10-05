@@ -2,6 +2,7 @@
 
 namespace SLLH\StyleCIBridge;
 
+use Composer\Semver\Semver;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
 use SLLH\StyleCIBridge\StyleCI\Fixers;
@@ -57,7 +58,7 @@ final class ConfigBridge
      */
     public function __construct($styleCIConfigDir = null, $finderDirs = null)
     {
-        if (version_compare(Fixer::VERSION, self::CS_FIXER_MIN_VERSION, '<')) {
+        if (!Semver::satisfies(Fixer::VERSION, sprintf('>=%s', self::CS_FIXER_MIN_VERSION))) {
             throw new \RuntimeException(sprintf(
                 'PHP-CS-Fixer v%s is not supported, please upgrade to v%s or higher.',
                 Fixer::VERSION,
