@@ -2,10 +2,13 @@
 
 namespace SLLH\StyleCIBridge\StyleCI;
 
+@trigger_error('SLLH\StyleCIBridge\StyleCI\Fixers class is deprecated since x.y and will be removed in x.0', E_USER_DEPRECATED);
+
 /**
  * This class was auto-generated from StyleCI/Config repository.
  *
  * @link https://github.com/StyleCI/Config/blob/master/src/Config.php
+ * @deprecated
  */
 class Fixers
 {
@@ -106,7 +109,6 @@ class Fixers
         'whitespacy_lines',
     );
 
-
     /**
      * @var string[]
      */
@@ -115,7 +117,6 @@ class Fixers
         'psr4',
         'short_tag',
     );
-
 
     /**
      * @var string[]
@@ -142,7 +143,6 @@ class Fixers
         'trailing_spaces',
         'visibility',
     );
-
 
     /**
      * @var string[]
@@ -220,7 +220,6 @@ class Fixers
         'whitespacy_lines',
     );
 
-
     /**
      * @var string[]
      */
@@ -293,7 +292,6 @@ class Fixers
         'visibility',
         'whitespacy_lines',
     );
-
 
     /**
      * @var string[]
@@ -373,7 +371,6 @@ class Fixers
         'whitespacy_lines',
     );
 
-
     /**
      * @var string[]
      */
@@ -382,27 +379,28 @@ class Fixers
         'join_function' => 'alias_functions',
     );
 
-
     /**
      * @var string[]
      */
     public static $conflicts = array(
-        'concat_with_spaces' => 'concat_without_spaces',
-        'long_array_syntax' => 'short_array_syntax',
+        'concat_with_spaces'              => 'concat_without_spaces',
+        'long_array_syntax'               => 'short_array_syntax',
         'no_blank_lines_before_namespace' => 'single_blank_line_before_namespace',
-        'phpdoc_var_to_type' => 'phpdoc_type_to_var',
-        'psr0' => 'psr4',
-        'unalign_double_arrow' => 'align_double_arrow',
-        'unalign_equals' => 'align_equals',
+        'phpdoc_var_to_type'              => 'phpdoc_type_to_var',
+        'psr0'                            => 'psr4',
+        'unalign_double_arrow'            => 'align_double_arrow',
+        'unalign_equals'                  => 'align_equals',
     );
 
     public static function getPresets()
     {
+        @trigger_error('The '.__METHOD__.' method is deprecated since x.y and will be removed in x.0', E_USER_DEPRECATED);
+
         return array(
-            'psr1' => self::$psr1_fixers,
-            'psr2' => self::$psr2_fixers,
-            'symfony' => self::$symfony_fixers,
-            'laravel' => self::$laravel_fixers,
+            'psr1'        => self::$psr1_fixers,
+            'psr2'        => self::$psr2_fixers,
+            'symfony'     => self::$symfony_fixers,
+            'laravel'     => self::$laravel_fixers,
             'recommended' => self::$recommended_fixers,
         );
     }

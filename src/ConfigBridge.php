@@ -5,6 +5,8 @@ namespace SLLH\StyleCIBridge;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
 use SLLH\StyleCIBridge\StyleCI\Fixers;
+use SLLH\StyleCIBridge\StyleCI\Presets;
+use StyleCI\Config\Config as StyleCIConfig;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -215,7 +217,7 @@ final class ConfigBridge
     private function getPresetFixers()
     {
         $preset = $this->styleCIConfig['preset'];
-        $validPresets = Fixers::getPresets();
+        $validPresets = Presets::all();
 
         return $validPresets[$preset];
     }
@@ -230,7 +232,7 @@ final class ConfigBridge
      */
     private function resolveAliases(array $fixers)
     {
-        foreach (Fixers::$aliases as $alias => $name) {
+        foreach (StyleCIConfig::ALIASES as $alias => $name) {
             if (in_array($alias, $fixers, true) && !in_array($name, $fixers, true) && $this->isFixerAvailable($name)) {
                 array_push($fixers, $name);
             }

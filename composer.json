@@ -11,11 +11,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.6",
         "symfony/yaml": "~2.3",
         "symfony/config": "~2.3",
         "symfony/dependency-injection": "~2.3",
-        "symfony/console": "~2.3"
+        "symfony/console": "~2.3",
+        "styleci/config": "~2.2"
     },
     "require-dev": {
         "twig/twig": "~1.22",
