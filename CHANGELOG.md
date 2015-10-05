@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 1.3.2 (2015-10-05)
+
+ * Use [composer/semver](https://packagist.org/packages/composer/semver) for better compatibility check.
+
 * 1.3.1 (2015-09-30)
 
  * Use `FixerFactory::hasRule` instead of building our own fixers array by name.
