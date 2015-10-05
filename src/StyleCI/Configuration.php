@@ -2,6 +2,7 @@
 
 namespace SLLH\StyleCIBridge\StyleCI;
 
+use StyleCI\Config\Config as StyleCIConfig;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -18,13 +19,13 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('styleci');
 
-        $validFixers = array_merge(Fixers::$valid, array_keys(Fixers::$aliases));
+        $validFixers = array_merge(StyleCIConfig::VALID, array_keys(StyleCIConfig::ALIASES));
 
         $rootNode
             ->children()
                 ->enumNode('preset')
                     ->isRequired()
-                    ->values(array_keys(Fixers::getPresets()))
+                    ->values(array_keys(Presets::all()))
                 ->end()
                 ->booleanNode('linting')
                     ->defaultTrue()
@@ -76,13 +77,13 @@ final class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 ->ifTrue(function ($config) {
-                    $presets = Fixers::getPresets();
+                    $presets = Presets::all();
                     $enabledFixers = array_merge($presets[$config['preset']], $config['enabled']);
                     $disabledFixers = $config['disabled'];
                     $fixers = array_diff($enabledFixers, $disabledFixers);
 
                     // See: https://github.com/StyleCI/Config/blob/f9747aba632aa4d272f212b5b9c9942234f4f074/src/Config.php#L549-L553
-                    foreach (Fixers::$conflicts as $first => $second) {
+                    foreach (StyleCIConfig::CONFLICTS as $first => $second) {
                         if (in_array($first, $fixers, true) && in_array($second, $fixers, true)) {
                             return true;
                         }
