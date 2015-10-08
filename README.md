@@ -67,7 +67,6 @@ enabled:
   - long_array_syntax
 
 disabled:
-  - psr0
   - unalign_double_arrow
   - unalign_equals
 ```
@@ -121,6 +120,29 @@ return Config::create()
     ->finder($bridge->getFinder())
     ->fixers(['dummy', 'foo', '-bar'])
     ->setUsingCache(true)
+;
+```
+
+### PSR-0 special case
+
+`psr-0` fixer is not [supported anymore](https://blog.alt-three.com/psr4-fixer/) by StyleCI
+and an error will be thrown by the application if you set it on your `.styleci.yml`.
+
+But, this fixer is still available on the current stable php-cs-fixer
+and you may need to disable it if your project is under psr-4 convention.
+
+In this case, you have to disable it manually on the `.php_cs` file:
+
+```php
+require_once __DIR__.'/vendor/autoload.php';
+
+use SLLH\StyleCIBridge\ConfigBridge;
+
+$config = ConfigBridge::create();
+
+return $config
+    ->setUsingCache(true)
+    ->fixers(array_merge($config->getFixers(), ['-psr0']))
 ;
 ```
 
