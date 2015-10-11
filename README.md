@@ -123,15 +123,10 @@ return Config::create()
 ;
 ```
 
-### PSR-0 special case
+### Manually enable or disable fixers
 
-`psr-0` fixer is not [supported anymore](https://blog.alt-three.com/psr4-fixer/) by StyleCI
-and an error will be thrown by the application if you set it on your `.styleci.yml`.
-
-But, this fixer is still available on the current stable php-cs-fixer
-and you may need to disable it if your project is under psr-4 convention.
-
-In this case, you have to disable it manually on the `.php_cs` file:
+To enable or disable some fixers manually on the `.php_cs` file,
+you will have to use merge system to keep fixers defined by the bridge:
 
 ```php
 require_once __DIR__.'/vendor/autoload.php';
@@ -142,7 +137,7 @@ $config = ConfigBridge::create();
 
 return $config
     ->setUsingCache(true)
-    ->fixers(array_merge($config->getFixers(), ['-psr0']))
+    ->fixers(array_merge($config->getFixers(), ['-psr0', 'custom', 'foo', '-bar']))
 ;
 ```
 
