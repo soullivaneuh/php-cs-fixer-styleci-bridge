@@ -199,4 +199,42 @@ return $config
 ;
 ```
 
+#### Both versions
+
+You can handle both versions easily with some magic `method_exists` tricks:
+
+```php
+<?php
+
+require './vendor/autoload.php';
+
+use SLLH\StyleCIBridge\ConfigBridge;
+use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+
+$header = <<<EOF
+This file is part of the dummy package.
+
+(c) John Doe <john@doe.com>
+
+This source file is subject to the MIT license that is bundled
+with this source code in the file LICENSE.
+EOF;
+
+// PHP-CS-Fixer 1.x
+if (method_exists('Symfony\CS\Fixer\Contrib\HeaderCommentFixer', 'getHeader')) {
+    HeaderCommentFixer::setHeader($header);
+}
+
+$config = ConfigBridge::create();
+
+// PHP-CS-Fixer 2.x
+if (method_exists($config, 'setRules')) {
+    $config->setRules(array_merge($config->getRules(), array(
+        'header_comment' => array('header' => $header)
+    )));
+}
+
+return $config;
+```
+
 A discussion is in progress for adding a `Config::addRule` method: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/1428
