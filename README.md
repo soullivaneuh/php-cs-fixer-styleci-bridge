@@ -206,7 +206,7 @@ You can handle both versions easily with some magic `method_exists` tricks:
 ```php
 <?php
 
-require './vendor/autoload.php';
+require __DIR__.'./vendor/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
