@@ -236,5 +236,3 @@ if (method_exists($config, 'setRules')) {
 
 return $config;
 ```
-
-A discussion is in progress for adding a `Config::addRule` method: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/1428
