@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__.'/autoload.php';
+
 use SLLH\StyleCIBridge\ConfigBridge;
 
 $config = ConfigBridge::create();
