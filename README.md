@@ -236,3 +236,24 @@ if (method_exists($config, 'setRules')) {
 
 return $config;
 ```
+
+## Troubleshooting
+
+### Conflict with code or vendor library
+
+In some edge cases, the bridge code may conflict with your code or your included vendor.
+
+This kind of issue was discovered in [puli/cli#21 (comment)](https://github.com/puli/cli/pull/21#issuecomment-148438983)
+and fixed in [#47](https://github.com/Soullivaneuh/php-cs-fixer-styleci-bridge/pull/47).
+
+Before that, you had to require the vendor autoload like this:
+
+```php
+require __DIR__.'/vendor/autoload.php';
+```
+
+This is not the secured way. Make sure to require our custom loader instead:
+
+```php
+require __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
+```
