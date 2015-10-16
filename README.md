@@ -46,7 +46,7 @@ Put the following config on your `.php_cs` file:
 <?php
 
 // Needed to get styleci-bridge loaded
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -78,7 +78,7 @@ You can change default repository of your `.styleci.yml` file and directories fo
 ```php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -92,7 +92,7 @@ return ConfigBridge::create(__DIR__.'/config', [__DIR__, __DIR__.'../lib']);
 ```php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -109,7 +109,7 @@ You can also using bridge method, part by part.
 ```php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Config\Config;
@@ -129,7 +129,7 @@ To enable or disable some fixers manually on the `.php_cs` file,
 you will have to use merge system to keep fixers defined by the bridge:
 
 ```php
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 
@@ -154,7 +154,7 @@ The config bridge will automatically detect the fixer and add it on CS configura
 ```php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
@@ -178,7 +178,7 @@ return ConfigBridge::create();
 ```php
 <?php
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
@@ -206,7 +206,7 @@ You can handle both versions easily with some magic `method_exists` tricks:
 ```php
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/vendor/sllh/php-cs-fixer-styleci-bridge/autoload.php';
 
 use SLLH\StyleCIBridge\ConfigBridge;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
