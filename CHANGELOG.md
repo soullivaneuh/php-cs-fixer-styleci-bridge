@@ -1,5 +1,10 @@
 # CHANGELOG
 
+* 1.3.3 (2015-10-16)
+
+ * Use a custom psr-4 loader to avoid code conflict.
+ * Guess config files path using php backtrace. This avoid issues on subdirectories.
+
 * 1.3.2 (2015-10-05)
 
  * Use [composer/semver](https://packagist.org/packages/composer/semver) for better compatibility check.
