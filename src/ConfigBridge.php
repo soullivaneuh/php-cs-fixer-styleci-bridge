@@ -66,8 +66,24 @@ final class ConfigBridge
             ));
         }
 
-        $this->styleCIConfigDir = null !== $styleCIConfigDir ? $styleCIConfigDir : getcwd();
-        $this->finderDirs = null !== $finderDirs ? $finderDirs : getcwd();
+        // Guess config files path if not specified.
+        // getcwd function is not enough. See: https://github.com/Soullivaneuh/php-cs-fixer-styleci-bridge/issues/46
+        if (null === $styleCIConfigDir || null === $finderDirs) {
+            $dbt = version_compare(PHP_VERSION, '5.4.0', '>=') ? debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2) : debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+
+            // Static call
+            if (isset($dbt[1]['class']) && 'SLLH\StyleCIBridge\ConfigBridge' === $dbt[1]['class'] && 'create' === $dbt[1]['function']) {
+                $configsPath = dirname($dbt[1]['file']);
+            } elseif (isset($dbt[0]['class']) && 'SLLH\StyleCIBridge\ConfigBridge' === $dbt[0]['class'] && '__construct' === $dbt[0]['function']) { // Manual instance
+                $configsPath = dirname($dbt[0]['file']);
+            } else { // If no case found, fallback to not reliable getcwd method.
+                $configsPath = getcwd();
+            }
+
+            $this->styleCIConfigDir = $styleCIConfigDir ?: $configsPath;
+            $this->finderDirs = $finderDirs ?: $configsPath;
+        }
+
         $this->output = new ConsoleOutput();
         $this->output->getFormatter()->setStyle('warning', new OutputFormatterStyle('black', 'yellow'));
         // PHP-CS-Fixer 1.x BC
