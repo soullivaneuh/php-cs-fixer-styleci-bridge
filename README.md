@@ -244,7 +244,7 @@ return $config;
 In some edge cases, the bridge code may conflict with your code or your included vendor.
 
 This kind of issue was discovered in [puli/cli#21 (comment)](https://github.com/puli/cli/pull/21#issuecomment-148438983)
-and fixed in [#47](https://github.com/Soullivaneuh/php-cs-fixer-styleci-bridge/pull/47).
+and fixed since `v1.3.3` in [#47](https://github.com/Soullivaneuh/php-cs-fixer-styleci-bridge/pull/47).
 
 Before that, you had to require the vendor autoload like this:
 
