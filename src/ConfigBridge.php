@@ -16,7 +16,6 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
 use Symfony\CS\Fixer;
-use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
 use Symfony\CS\FixerFactory;
 use Symfony\CS\FixerInterface;
 
@@ -25,7 +24,7 @@ use Symfony\CS\FixerInterface;
  */
 final class ConfigBridge
 {
-    const CS_FIXER_MIN_VERSION = '1.6.1';
+    const CS_FIXER_MIN_VERSION = '2.0';
 
     /**
      * @var OutputInterface
@@ -35,7 +34,7 @@ final class ConfigBridge
     /**
      * @var FixerFactory
      */
-    private $fixerFactory = null;
+    private $fixerFactory;
 
     /**
      * @var string
@@ -86,11 +85,9 @@ final class ConfigBridge
 
         $this->output = new ConsoleOutput();
         $this->output->getFormatter()->setStyle('warning', new OutputFormatterStyle('black', 'yellow'));
-        // PHP-CS-Fixer 1.x BC
-        if (class_exists('Symfony\CS\FixerFactory')) {
-            $this->fixerFactory = FixerFactory::create();
-            $this->fixerFactory->registerBuiltInFixers();
-        }
+
+        $this->fixerFactory = FixerFactory::create();
+        $this->fixerFactory->registerBuiltInFixers();
 
         $this->parseStyleCIConfig();
     }
@@ -105,20 +102,8 @@ final class ConfigBridge
     {
         $bridge = new static($styleCIConfigDir, $finderDirs);
 
-        $config = Config::create();
-
-        // PHP-CS-Fixer 1.x BC
-        if (method_exists($config, 'level')) {
-            $config->level(FixerInterface::NONE_LEVEL);
-        }
-
-        if (method_exists($config, 'setRules')) {
-            $config->setRules($bridge->getRules());
-        } else { // PHP-CS-Fixer 1.x BC
-            $config->fixers($bridge->getFixers());
-        }
-
-        return $config
+        return Config::create()
+            ->setRules($bridge->getRules())
             ->finder($bridge->getFinder())
         ;
     }
@@ -174,9 +159,13 @@ final class ConfigBridge
 
     /**
      * @return string[]
+     *
+     * @deprecated since 2.0, to be removed in 3.0
      */
     public function getFixers()
     {
+        trigger_error('The '.__METHOD__.' method is deprecated since version 2.0 and will be removed in 3.0. Use '.__CLASS__.'::getRules instead.');
+
         $presetFixers = $this->resolveAliases($this->getPresetFixers());
         $enabledFixers = $this->resolveAliases($this->styleCIConfig['enabled']);
         $disabledFixers = $this->resolveAliases($this->styleCIConfig['disabled']);
@@ -189,11 +178,6 @@ final class ConfigBridge
             array_diff($presetFixers, $disabledFixers) // Remove disabled fixers from preset
         );
 
-        // PHP-CS-Fixer 1.x BC
-        if (method_exists('Symfony\CS\Fixer\Contrib\HeaderCommentFixer', 'getHeader') && HeaderCommentFixer::getHeader()) {
-            array_push($fixers, 'header_comment');
-        }
-
         return $fixers;
     }
 
@@ -204,22 +188,24 @@ final class ConfigBridge
      */
     public function getRules()
     {
-        $fixers = $this->getFixers();
+        $presetFixers = $this->resolveAliases($this->getPresetFixers());
+        $enabledFixers = $this->resolveAliases($this->styleCIConfig['enabled']);
+        $disabledFixers = $this->resolveAliases($this->styleCIConfig['disabled']);
 
         $rules = array();
-        foreach ($fixers as $fixer) {
-            if ('-' === $fixer[0]) {
-                $name = substr($fixer, 1);
-                $enabled = false;
+        $ruleSkipMessage = '<warning>Fixer "%s" does not exist, skipping.</warning>';
+        foreach (array_merge($enabledFixers, $presetFixers) as $fixer) {
+            if ($this->isFixerAvailable($fixer)) {
+                $rules[$fixer] = true;
             } else {
-                $name = $fixer;
-                $enabled = true;
+                $this->output->writeln(sprintf($ruleSkipMessage, $fixer));
             }
-
-            if ($this->isFixerAvailable($name)) {
-                $rules[$name] = $enabled;
+        }
+        foreach ($disabledFixers as $fixer) {
+            if ($this->isFixerAvailable($fixer)) {
+                $rules[$fixer] = false;
             } else {
-                $this->output->writeln(sprintf('<warning>Fixer "%s" does not exist, skipping.</warning>', $name));
+                $this->output->writeln(sprintf($ruleSkipMessage, $fixer));
             }
         }
 
@@ -266,11 +252,6 @@ final class ConfigBridge
      */
     private function isFixerAvailable($name)
     {
-        // PHP-CS-Fixer 1.x BC
-        if (null === $this->fixerFactory) {
-            return true;
-        }
-
         return $this->fixerFactory->hasRule($name);
     }
 
