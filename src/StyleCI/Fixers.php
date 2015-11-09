@@ -2,10 +2,14 @@
 
 namespace SLLH\StyleCIBridge\StyleCI;
 
+@trigger_error('The '.__NAMESPACE__.'\Fixers class is deprecated since 1.4 and will be removed in 2.0. Use SLLH\StyleCIFixers\Fixers instead.', E_USER_DEPRECATED);
+
 /**
  * This class was auto-generated from StyleCI/Config repository.
  *
  * @link https://github.com/StyleCI/Config/blob/master/src/Config.php
+ *
+ * @deprecated since 1.4, will be removed in 2.0.
  */
 class Fixers
 {

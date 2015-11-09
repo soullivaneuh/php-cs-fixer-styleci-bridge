@@ -2,6 +2,7 @@
 
 namespace SLLH\StyleCIBridge\StyleCI;
 
+use SLLH\StyleCIFixers\Fixers;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 

@@ -16,7 +16,8 @@
         "symfony/config": "~2.3|~3.0",
         "symfony/dependency-injection": "~2.3|~3.0",
         "symfony/console": "~2.3|~3.0",
-        "composer/semver": "~1.0"
+        "composer/semver": "~1.0",
+        "sllh/styleci-fixers": "~2.3"
     },
     "require-dev": {
         "twig/twig": "~1.22",
