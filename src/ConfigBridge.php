@@ -5,7 +5,7 @@ namespace SLLH\StyleCIBridge;
 use Composer\Semver\Semver;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
-use SLLH\StyleCIBridge\StyleCI\Fixers;
+use SLLH\StyleCIFixers\Fixers;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;

@@ -7,8 +7,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+@trigger_error('The '.__NAMESPACE__.'\StyleCIConfigCheckCommand class is deprecated since 1.4 and will be removed in 2.0.', E_USER_DEPRECATED);
+
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
+ *
+ * @deprecated since 1.4, will be removed in 2.0.
  */
 class StyleCIConfigCheckCommand extends Command
 {

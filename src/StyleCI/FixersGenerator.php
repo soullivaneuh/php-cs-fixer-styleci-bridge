@@ -5,8 +5,12 @@ namespace SLLH\StyleCIBridge\StyleCI;
 use Symfony\CS\Tokenizer\Token;
 use Symfony\CS\Tokenizer\Tokens;
 
+@trigger_error('The '.__NAMESPACE__.'\FixersGenerator class is deprecated since 1.4 and will be removed in 2.0.', E_USER_DEPRECATED);
+
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
+ *
+ * @deprecated since 1.4, will be removed in 2.0.
  */
 final class FixersGenerator
 {
