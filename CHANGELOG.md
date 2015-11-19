@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 1.4.1 (2015-11-19)
+
+ * Manage single scalar values for `enabled`, `disabled` and `finder` configuration keys.
+
 * 1.4.0 (2015-11-10)
 
  * Extract StyleCI fixers generator outside of this project,
