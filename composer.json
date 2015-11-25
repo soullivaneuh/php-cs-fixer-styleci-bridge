@@ -27,6 +27,8 @@
         "codeclimate/php-test-reporter": "~0.2",
         "symfony/phpunit-bridge": "^2.7.4|~3.0"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": { "SLLH\\StyleCIBridge\\": "src" }
     },
