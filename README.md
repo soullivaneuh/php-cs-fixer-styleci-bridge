@@ -41,7 +41,7 @@ You can use this bridge with several manners.
 ### Basic usage
 
 Put the following config on your `.php_cs` file:
- 
+
 ```php
 <?php
 
@@ -144,7 +144,7 @@ return $config
 ### Header comment
 
 Unfortunately, header comment option [is not available](https://twitter.com/soullivaneuh/status/644795113399582720) on StyleCI config file.
- 
+
 You will have to copy it from StyleCI web interface and set it manually.
 
 The config bridge will automatically detect the fixer and add it on CS configuration.
