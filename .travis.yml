@@ -30,8 +30,6 @@ matrix:
       env: SYMFONY_VERSION=3.0.*
   allow_failures:
     - php: nightly
-    - php: hhvm
-    - php: hhvm-nightly
     - env: PHP_CS_FIXER_VERSION=2.*
 
 sudo: false
