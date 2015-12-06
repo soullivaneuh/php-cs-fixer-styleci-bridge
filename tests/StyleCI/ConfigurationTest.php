@@ -30,6 +30,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             'linting'  => true,
             'enabled'  => array(),
             'disabled' => array(),
+            'risky'    => true,
         ), $expectedProcessedConfiguration ?: $configuration);
 
         if (isset($configuration['finder'])) {

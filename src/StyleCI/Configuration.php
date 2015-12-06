@@ -57,6 +57,9 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->append($this->getFinderConfigurationNode())
+                ->booleanNode('risky')
+                    ->defaultTrue()
+                ->end()
             ->end()
             ->validate()
                 ->ifTrue(function ($config) {
