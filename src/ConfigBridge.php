@@ -118,6 +118,11 @@ final class ConfigBridge
             $config->fixers($bridge->getFixers());
         }
 
+        // PHP-CS-Fixer 1.x BC
+        if (method_exists($config, 'setRiskyAllowed')) {
+            $config->setRiskyAllowed($bridge->getRisky());
+        }
+
         return $config
             ->finder($bridge->getFinder())
         ;
@@ -224,6 +229,14 @@ final class ConfigBridge
         }
 
         return $rules;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getRisky()
+    {
+        return $this->styleCIConfig['risky'];
     }
 
     /**
