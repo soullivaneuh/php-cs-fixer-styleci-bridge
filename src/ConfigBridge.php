@@ -6,6 +6,7 @@ use Composer\Semver\Semver;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\Application;
 use PhpCsFixer\Finder;
+use PhpCsFixer\FixerFactory;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
 use SLLH\StyleCIFixers\Fixers;
@@ -17,7 +18,6 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\CS\Fixer;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
-use Symfony\CS\FixerFactory;
 use Symfony\CS\FixerInterface;
 
 /**
@@ -90,7 +90,7 @@ final class ConfigBridge
         $this->output = new ConsoleOutput();
         $this->output->getFormatter()->setStyle('warning', new OutputFormatterStyle('black', 'yellow'));
         // PHP-CS-Fixer 1.x BC
-        if (class_exists('Symfony\CS\FixerFactory')) {
+        if (class_exists('PhpCsFixer\FixerFactory')) {
             $this->fixerFactory = FixerFactory::create();
             $this->fixerFactory->registerBuiltInFixers();
         }
