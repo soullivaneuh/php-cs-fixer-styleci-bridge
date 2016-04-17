@@ -1,16 +1,9 @@
 # Upgrade from 1.x to 2.0
 
-## Deprecated exceptions
+## Deprecations
 
-Deprecated exception classes are removed.
+All the deprecated code introduced on 1.x is removed on 2.0.
 
-Following classes are no longer available:
+Please read 1.x upgrade guides for more information.
 
-* `AbstractConfigException`
-* `FixersConfigException`
-* `LevelConfigException`
-* `PresetConfigException`
-
-## Deprecation removal
-
-All deprecated stuff specified on UPGRADE-1.*.MD files is now removed.
+See also the [diff code](https://github.com/Soullivaneuh/php-cs-fixer-styleci-bridge/compare/1.x...v2.0.0).
