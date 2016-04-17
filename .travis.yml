@@ -28,9 +28,12 @@ matrix:
       env: SYMFONY_VERSION=2.8.*
     - php: 5.6
       env: SYMFONY_VERSION=3.0.*
+    - php: 5.6
+      env: SYMFONY_VERSION=3.1.*
   allow_failures:
     - php: nightly
     - env: PHP_CS_FIXER_VERSION=2.*
+    - env: SYMFONY_VERSION=3.1.*
 
 sudo: false
 
@@ -38,17 +41,22 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-before_script:
-  - composer selfupdate
+before_install:
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then phpenv config-rm xdebug.ini; fi;
+
+install:
   - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-  - composer global require phpunit/phpunit:@stable --no-update
+  - composer global require phpunit/phpunit:@stable satooshi/php-coveralls:@stable codeclimate/php-test-reporter:@stable --no-update
   - composer global update --prefer-dist --no-interaction
   - if [ "$PHP_CS_FIXER_VERSION" != "" ]; then composer require "fabpot/php-cs-fixer:${PHP_CS_FIXER_VERSION}" --no-update; fi;
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
-script: make test
+before_script:
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then echo "zend_extension=xdebug.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;
+
+script: phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 after_script:
-  - php vendor/bin/coveralls -v
-  - php vendor/bin/test-reporter
+  - coveralls -v
+  - test-reporter
