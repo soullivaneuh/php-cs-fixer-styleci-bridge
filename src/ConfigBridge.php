@@ -90,7 +90,7 @@ final class ConfigBridge
         $this->output = new ConsoleOutput();
         $this->output->getFormatter()->setStyle('warning', new OutputFormatterStyle('black', 'yellow'));
         // PHP-CS-Fixer 1.x BC
-        if (class_exists('PhpCsFixer\FixerFactory')) {
+        if (class_exists('PhpCsFixer\FixerFactory')) { // PHP-CS-Fixer 2.x only
             $this->fixerFactory = FixerFactory::create();
             $this->fixerFactory->registerBuiltInFixers();
         }
