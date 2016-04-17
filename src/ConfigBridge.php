@@ -6,7 +6,6 @@ use Composer\Semver\Semver;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\Application;
 use PhpCsFixer\Finder;
-use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
 use SLLH\StyleCIFixers\Fixers;
 use Symfony\Component\Config\Definition\Processor;
@@ -166,28 +165,6 @@ final class ConfigBridge
         }
 
         return $finder;
-    }
-
-    /**
-     * @return int
-     *
-     * @deprecated since 1.1, to be removed in 2.0
-     */
-    public function getLevel()
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 1.1 and will be removed in 2.0.', E_USER_DEPRECATED);
-
-        $preset = $this->styleCIConfig['preset'];
-        $validPresets = array(
-            'psr1'    => FixerInterface::PSR1_LEVEL,
-            'psr2'    => FixerInterface::PSR1_LEVEL,
-            'symfony' => FixerInterface::SYMFONY_LEVEL,
-        );
-        if (!in_array($preset, array_keys($validPresets))) {
-            throw new LevelConfigException(sprintf('Invalid preset "%s". Must be one of "%s".', $preset, implode('", "', array_keys($validPresets))));
-        }
-
-        return $validPresets[$preset];
     }
 
     /**
