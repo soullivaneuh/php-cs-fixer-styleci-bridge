@@ -16,8 +16,6 @@ class ConfigBridgeTest extends \PHPUnit_Framework_TestCase
         if (method_exists($config, 'getRules')) {
             $this->assertArraySubset(array(
                 'align_double_arrow'          => true,
-                'newline_after_open_tag'      => true,
-                'ordered_use'                 => true,
                 'long_array_syntax'           => true,
                 'linebreak_after_opening_tag' => true,
                 'ordered_imports'             => true,
