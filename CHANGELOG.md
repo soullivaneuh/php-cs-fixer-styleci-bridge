@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 1.6.1 (2016-04-17)
+
+ * Fix bad namespace issue with php-cs-fixer 2.x.
+
 * 1.6.0 (2016-04-17)
 
  * StyleCI fixers updated (`sllh/styleci-fixers` 3.0).
