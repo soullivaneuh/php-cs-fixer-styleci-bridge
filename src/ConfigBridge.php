@@ -3,6 +3,9 @@
 namespace SLLH\StyleCIBridge;
 
 use Composer\Semver\Semver;
+use PhpCsFixer\Config;
+use PhpCsFixer\Console\Application;
+use PhpCsFixer\Finder;
 use SLLH\StyleCIBridge\Exception\LevelConfigException;
 use SLLH\StyleCIBridge\StyleCI\Configuration;
 use SLLH\StyleCIFixers\Fixers;
@@ -11,10 +14,7 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\CS\Config\Config;
-use Symfony\CS\Finder\DefaultFinder;
 use Symfony\CS\Fixer;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
 use Symfony\CS\FixerFactory;
@@ -58,7 +58,10 @@ final class ConfigBridge
      */
     public function __construct($styleCIConfigDir = null, $finderDirs = null)
     {
-        if (!Semver::satisfies(Fixer::VERSION, sprintf('>=%s', self::CS_FIXER_MIN_VERSION))) {
+        if (!Semver::satisfies(
+            class_exists('Symfony\CS\Fixer') ? Fixer::VERSION : Application::VERSION, // PHP-CS-Fixer 1.x BC
+            sprintf('>=%s', self::CS_FIXER_MIN_VERSION)
+        )) {
             throw new \RuntimeException(sprintf(
                 'PHP-CS-Fixer v%s is not supported, please upgrade to v%s or higher.',
                 Fixer::VERSION,
@@ -105,7 +108,12 @@ final class ConfigBridge
     {
         $bridge = new static($styleCIConfigDir, $finderDirs);
 
-        $config = Config::create();
+        // PHP-CS-Fixer 1.x BC
+        if (class_exists('\Symfony\CS\Config\Config')) {
+            $config = \Symfony\CS\Config\Config::create();
+        } else {
+            $config = Config::create();
+        }
 
         // PHP-CS-Fixer 1.x BC
         if (method_exists($config, 'level')) {
@@ -129,11 +137,16 @@ final class ConfigBridge
     }
 
     /**
-     * @return Finder
+     * @return Finder|\Symfony\CS\Finder\DefaultFinder
      */
     public function getFinder()
     {
-        $finder = DefaultFinder::create()->in($this->finderDirs);
+        // PHP-CS-Fixer 1.x BC
+        if (class_exists('\Symfony\CS\Finder\DefaultFinder')) {
+            $finder = \Symfony\CS\Finder\DefaultFinder::create()->in($this->finderDirs);
+        } else {
+            $finder = Finder::create()->in($this->finderDirs);
+        }
         if (isset($this->styleCIConfig['finder'])) {
             $finderConfig = $this->styleCIConfig['finder'];
             foreach ($finderConfig as $key => $values) {
