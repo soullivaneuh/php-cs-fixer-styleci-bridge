@@ -16,10 +16,10 @@ With that, you will avoid the pain of both config files maintenance.
 [![Monthly Downloads](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/d/monthly)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
 [![Daily Downloads](https://poser.pugx.org/sllh/php-cs-fixer-styleci-bridge/d/daily)](https://packagist.org/packages/sllh/php-cs-fixer-styleci-bridge)
 
-[![Build Status](https://travis-ci.org/Soullivaneuh/php-cs-fixer-styleci-bridge.svg?branch=master)](https://travis-ci.org/Soullivaneuh/php-cs-fixer-styleci-bridge)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/?branch=master)
+[![Build Status](https://travis-ci.org/Soullivaneuh/php-cs-fixer-styleci-bridge.svg?branch=1.x)](https://travis-ci.org/Soullivaneuh/php-cs-fixer-styleci-bridge)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/quality-score.png?b=1.x)](https://scrutinizer-ci.com/g/Soullivaneuh/php-cs-fixer-styleci-bridge/?branch=1.x)
 [![Code Climate](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge/badges/gpa.svg)](https://codeclimate.com/github/Soullivaneuh/php-cs-fixer-styleci-bridge)
-[![Coverage Status](https://coveralls.io/repos/Soullivaneuh/php-cs-fixer-styleci-bridge/badge.svg?branch=master)](https://coveralls.io/r/Soullivaneuh/php-cs-fixer-styleci-bridge?branch=master)
+[![Coverage Status](https://coveralls.io/repos/Soullivaneuh/php-cs-fixer-styleci-bridge/badge.svg?branch=1.x)](https://coveralls.io/r/Soullivaneuh/php-cs-fixer-styleci-bridge?branch=1.x)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f04c9b72-91a8-4ad7-9e7f-ce6dfc66df78/mini.png)](https://insight.sensiolabs.com/projects/f04c9b72-91a8-4ad7-9e7f-ce6dfc66df78)
 
 ## Who is using this?
