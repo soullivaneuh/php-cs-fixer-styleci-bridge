@@ -1,5 +1,10 @@
 # CHANGELOG
 
+* 1.6.0 (2016-04-17)
+
+ * StyleCI fixers updated (`sllh/styleci-fixers` 3.0).
+ * Fix some compatibility issues with php-cs-fixer 2.x.
+
 * 1.5.0 (2015-12-06)
 
  * Manage StyleCI `risky` option.
