@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 2.0.0 (2016-04-17)
+
+ * Remove all 1.x deprecated stuff.
+
 * 1.6.1 (2016-04-17)
 
  * Fix bad namespace issue with php-cs-fixer 2.x.
