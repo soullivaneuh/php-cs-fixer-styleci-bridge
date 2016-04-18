@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 2.0.1 (2016-04-18)
+
+ * Enable `sllh/styleci-fixers` 4.0.
+
 * 2.0.0 (2016-04-17)
 
  * Remove all 1.x deprecated stuff.
