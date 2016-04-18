@@ -4,6 +4,10 @@
 
  * Remove all 1.x deprecated stuff.
 
+* 1.6.2 (2016-04-18)
+
+ * Enable `sllh/styleci-fixers` 4.0.
+
 * 1.6.1 (2016-04-17)
 
  * Fix bad namespace issue with php-cs-fixer 2.x.
