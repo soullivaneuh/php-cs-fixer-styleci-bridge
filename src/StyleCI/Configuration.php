@@ -35,7 +35,9 @@ final class Configuration implements ConfigurationInterface
                 ->arrayNode('enabled')
                     ->beforeNormalization()
                         ->ifString()
-                        ->then(function ($v) { return array($v); })
+                        ->then(function ($v) {
+                            return array($v);
+                        })
                     ->end()
                     ->prototype('scalar')
                         ->validate()
@@ -47,7 +49,9 @@ final class Configuration implements ConfigurationInterface
                 ->arrayNode('disabled')
                     ->beforeNormalization()
                         ->ifString()
-                        ->then(function ($v) { return array($v); })
+                        ->then(function ($v) {
+                            return array($v);
+                        })
                     ->end()
                     ->prototype('scalar')
                         ->validate()
