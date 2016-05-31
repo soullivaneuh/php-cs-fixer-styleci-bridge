@@ -22,7 +22,7 @@
     "require-dev": {
         "twig/twig": "^1.22",
         "matthiasnoback/symfony-config-test": "^1.2",
-        "fabpot/php-cs-fixer": "^1.6.1",
+        "friendsofphp/php-cs-fixer": "^1.6.1",
         "symfony/phpunit-bridge": "^2.7.4|^3.0"
     },
     "minimum-stability": "dev",
