@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 2.0.2 (2016-06-01)
+
+ * Use new `friendsofphp` vendor name for `php-cs-fixer``.
+
 * 2.0.1 (2016-04-18)
 
  * Enable `sllh/styleci-fixers` 4.0.
