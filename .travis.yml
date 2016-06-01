@@ -1,5 +1,6 @@
 branches:
   only:
+    - codecov
     - master
     - 1.x
 
@@ -65,3 +66,4 @@ script: phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 after_script:
   - coveralls -v
   - test-reporter
+  - bash <(curl -s https://codecov.io/bash)
