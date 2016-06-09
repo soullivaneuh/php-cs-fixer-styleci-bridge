@@ -27,22 +27,22 @@ class ConfigurationTest extends AbstractConfigurationTestCase
 
         // Set default expected configuration
         $expectedProcessedConfiguration = array_merge(array(
-            'linting'  => true,
-            'enabled'  => array(),
+            'linting' => true,
+            'enabled' => array(),
             'disabled' => array(),
-            'risky'    => true,
+            'risky' => true,
         ), $expectedProcessedConfiguration ?: $configuration);
 
         if (isset($configuration['finder'])) {
             $expectedFinderProcessedConfiguration = array_merge_recursive(array(
-                'exclude'      => array(),
-                'name'         => array(),
-                'not_name'     => array(),
-                'contains'     => array(),
+                'exclude' => array(),
+                'name' => array(),
+                'not_name' => array(),
+                'contains' => array(),
                 'not_contains' => array(),
-                'path'         => array(),
-                'not_path'     => array(),
-                'depth'        => array(),
+                'path' => array(),
+                'not_path' => array(),
+                'depth' => array(),
             ), !empty($expectedProcessedConfiguration) && isset($expectedProcessedConfiguration['finder'])
                 ? $expectedProcessedConfiguration['finder']
                 : $configuration['finder']
@@ -84,38 +84,38 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             ),
             array(
                 array(
-                    'preset'   => 'symfony',
-                    'linting'  => false,
-                    'enabled'  => array(
+                    'preset' => 'symfony',
+                    'linting' => false,
+                    'enabled' => array(
                         'return',
                         'phpdoc_params',
                     ),
                     'disabled' => array(
                         'short_array_syntax',
                     ),
-                    'finder'   => array(
+                    'finder' => array(
                         'not_name' => array('*.dummy'),
                     ),
                 ),
             ),
             array(
                 array(
-                    'preset'  => 'symfony',
-                    'finder'  => array(
+                    'preset' => 'symfony',
+                    'finder' => array(
                         'not-name' => array('*.dummy'),
                     ),
                 ),
                 array(
-                    'preset'  => 'symfony',
-                    'finder'  => array(
+                    'preset' => 'symfony',
+                    'finder' => array(
                         'not_name' => array('*.dummy'),
                     ),
                 ),
             ),
             array(
                 array(
-                    'preset'   => 'symfony',
-                    'enabled'  => array(
+                    'preset' => 'symfony',
+                    'enabled' => array(
                         'align_double_arrow',
                     ),
                     'disabled' => array(
@@ -126,33 +126,33 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             // Scalar values
             array(
                 array(
-                    'preset'   => 'symfony',
-                    'enabled'  => 'return',
+                    'preset' => 'symfony',
+                    'enabled' => 'return',
                     'disabled' => 'long_array_syntax',
-                    'finder'   => array(
-                        'exclude'      => 'foo',
-                        'name'         => 'foo',
-                        'not_name'     => 'foo',
-                        'contains'     => 'foo',
+                    'finder' => array(
+                        'exclude' => 'foo',
+                        'name' => 'foo',
+                        'not_name' => 'foo',
+                        'contains' => 'foo',
                         'not_contains' => 'foo',
-                        'path'         => 'foo',
-                        'not_path'     => 'foo',
-                        'depth'        => 'foo',
+                        'path' => 'foo',
+                        'not_path' => 'foo',
+                        'depth' => 'foo',
                     ),
                 ),
                 array(
-                    'preset'   => 'symfony',
-                    'enabled'  => array('return'),
+                    'preset' => 'symfony',
+                    'enabled' => array('return'),
                     'disabled' => array('long_array_syntax'),
-                    'finder'   => array(
-                        'exclude'      => array('foo'),
-                        'name'         => array('foo'),
-                        'not_name'     => array('foo'),
-                        'contains'     => array('foo'),
+                    'finder' => array(
+                        'exclude' => array('foo'),
+                        'name' => array('foo'),
+                        'not_name' => array('foo'),
+                        'contains' => array('foo'),
                         'not_contains' => array('foo'),
-                        'path'         => array('foo'),
-                        'not_path'     => array('foo'),
-                        'depth'        => array('foo'),
+                        'path' => array('foo'),
+                        'not_path' => array('foo'),
+                        'depth' => array('foo'),
                     ),
                 ),
             ),
@@ -182,26 +182,26 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             ),
             array(
                 array(
-                    'preset'  => 'symfony',
+                    'preset' => 'symfony',
                     'linting' => 42,
                 ),
             ),
             array(
                 array(
-                    'preset'  => 'symfony',
+                    'preset' => 'symfony',
                     'linting' => false,
                     'enabled' => false,
                 ),
             ),
             array(
                 array(
-                    'preset'   => 'symfony',
+                    'preset' => 'symfony',
                     'disabled' => false,
                 ),
             ),
             array(
                 array(
-                    'preset'  => 'symfony',
+                    'preset' => 'symfony',
                     'enabled' => array(
                         'dummy',
                         'phpdoc_params',
@@ -210,7 +210,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             ),
             array(
                 array(
-                    'preset'   => 'symfony',
+                    'preset' => 'symfony',
                     'disabled' => array(
                         'dummy',
                         'short_array_syntax',
@@ -227,7 +227,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             ),
             array(
                 array(
-                    'preset'  => 'symfony',
+                    'preset' => 'symfony',
                     'enabled' => array(
                         'align_double_arrow',
                     ),
@@ -235,7 +235,7 @@ class ConfigurationTest extends AbstractConfigurationTestCase
             ),
             array(
                 array(
-                    'preset'  => 'psr1',
+                    'preset' => 'psr1',
                     'enabled' => array(
                         'no_blank_lines_before_namespace',
                         'single_blank_line_before_namespace',
