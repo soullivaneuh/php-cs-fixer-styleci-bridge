@@ -2,6 +2,7 @@
 
 namespace SLLH\StyleCIBridge\StyleCI;
 
+use SLLH\StyleCIBridge\ConfigBridge;
 use SLLH\StyleCIFixers\Fixers;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -27,7 +28,7 @@ final class Configuration implements ConfigurationInterface
             ->children()
                 ->enumNode('preset')
                     ->isRequired()
-                    ->values(array_keys(Fixers::getPresets()))
+                    ->values(array_merge(array_keys(Fixers::getPresets()), array(ConfigBridge::PRESET_NONE)))
                 ->end()
                 ->booleanNode('linting')
                     ->defaultTrue()
@@ -68,7 +69,9 @@ final class Configuration implements ConfigurationInterface
             ->validate()
                 ->ifTrue(function ($config) {
                     $presets = Fixers::getPresets();
-                    $enabledFixers = array_merge($presets[$config['preset']], $config['enabled']);
+                    $enabledFixers = ConfigBridge::PRESET_NONE === $config['preset']
+                        ? $config['enabled']
+                        : array_merge($presets[$config['preset']], $config['enabled']);
                     $disabledFixers = $config['disabled'];
                     $fixers = array_diff($enabledFixers, $disabledFixers);
 

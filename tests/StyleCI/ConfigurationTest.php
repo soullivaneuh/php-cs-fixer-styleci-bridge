@@ -59,6 +59,11 @@ class ConfigurationTest extends AbstractConfigurationTestCase
         return array(
             array(
                 array(
+                    'preset' => 'none',
+                ),
+            ),
+            array(
+                array(
                     'preset' => 'psr1',
                 ),
             ),

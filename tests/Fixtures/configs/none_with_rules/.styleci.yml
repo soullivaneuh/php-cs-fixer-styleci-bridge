@@ -1,0 +1,5 @@
+preset: none
+
+enabled:
+  - align_double_arrow
+  - ordered_use
