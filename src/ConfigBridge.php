@@ -26,6 +26,8 @@ final class ConfigBridge
 {
     const CS_FIXER_MIN_VERSION = '1.6.1';
 
+    const PRESET_NONE = 'none';
+
     /**
      * @var OutputInterface
      */
@@ -234,10 +236,12 @@ final class ConfigBridge
      */
     private function getPresetFixers()
     {
-        $preset = $this->styleCIConfig['preset'];
+        if (static::PRESET_NONE === $this->styleCIConfig['preset']) {
+            return array();
+        }
         $validPresets = Fixers::getPresets();
 
-        return $validPresets[$preset];
+        return $validPresets[$this->styleCIConfig['preset']];
     }
 
     /**

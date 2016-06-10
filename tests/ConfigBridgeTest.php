@@ -37,4 +37,32 @@ class ConfigBridgeTest extends \PHPUnit_Framework_TestCase
             ), $config->getFixers());
         }
     }
+
+    public function testNonePreset()
+    {
+        $config = ConfigBridge::create(__DIR__.'/Fixtures/configs/none');
+
+        if (method_exists($config, 'getRules')) {
+            $this->assertSame(array(), $config->getRules());
+        } else { // PHP-CS-Fixer 1.x BC
+            $this->assertArraySubset(array(), $config->getFixers());
+        }
+    }
+
+    public function testNonePresetWithRules()
+    {
+        $config = ConfigBridge::create(__DIR__.'/Fixtures/configs/none_with_rules');
+
+        if (method_exists($config, 'getRules')) {
+            $this->assertSame(array(
+                'align_double_arrow' => true,
+                'ordered_imports' => true,
+            ), $config->getRules());
+        } else { // PHP-CS-Fixer 1.x BC
+            $this->assertArraySubset(array(
+                'align_double_arrow',
+                'ordered_use',
+            ), $config->getFixers());
+        }
+    }
 }
