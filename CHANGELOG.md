@@ -1,5 +1,9 @@
 # CHANGELOG
 
+* 2.1.0 (2016-06-10)
+
+ * Manage `none` preset of configuration file.
+
 * 2.0.2 (2016-06-01)
 
  * Use new `friendsofphp` vendor name for `php-cs-fixer`.
