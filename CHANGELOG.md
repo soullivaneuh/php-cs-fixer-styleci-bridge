@@ -1,5 +1,10 @@
 # CHANGELOG
 
+* 2.1.1 (2016-06-22)
+
+ * Fix missing PHPDoc class for `php-cs-fixer` v1 compatibility.
+ * Use `doctine/inflector` for finder method camelize
+
 * 2.1.0 (2016-06-10)
 
  * Manage `none` preset of configuration file.
