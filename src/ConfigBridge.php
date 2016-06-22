@@ -103,7 +103,7 @@ final class ConfigBridge
      * @param string       $styleCIConfigDir
      * @param string|array $finderDirs       A directory path or an array of directories for Finder
      *
-     * @return Config
+     * @return Config|\Symfony\CS\Config\Config
      */
     public static function create($styleCIConfigDir = null, $finderDirs = null)
     {
