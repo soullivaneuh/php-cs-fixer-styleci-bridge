@@ -36,6 +36,9 @@ class ConfigBridgeTest extends \PHPUnit_Framework_TestCase
                 '-unalign_equals',
             ), $config->getFixers());
         }
+
+        $this->assertAttributeContains('tmp', 'exclude', $config->getFinder());
+        $this->assertAttributeContains('autoload.php', 'notNames', $config->getFinder());
     }
 
     public function testNonePreset()

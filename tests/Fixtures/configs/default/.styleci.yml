@@ -14,3 +14,6 @@ disabled:
 finder:
   exclude:
     - tmp
+  not-name:
+    - autoload.php
+    - skip_*_test.php

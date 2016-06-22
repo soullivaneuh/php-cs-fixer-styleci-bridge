@@ -3,6 +3,7 @@
 namespace SLLH\StyleCIBridge;
 
 use Composer\Semver\Semver;
+use Doctrine\Common\Inflector\Inflector;
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\Application;
 use PhpCsFixer\Finder;
@@ -13,7 +14,6 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\CS\Fixer;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
@@ -151,7 +151,7 @@ final class ConfigBridge
         if (isset($this->styleCIConfig['finder'])) {
             $finderConfig = $this->styleCIConfig['finder'];
             foreach ($finderConfig as $key => $values) {
-                $finderMethod = Container::camelize($key);
+                $finderMethod = Inflector::camelize($key);
                 foreach ($values as $value) {
                     if (method_exists($finder, $finderMethod)) {
                         $finder->$finderMethod($value);
