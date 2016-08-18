@@ -103,16 +103,17 @@ final class ConfigBridge
      * @param string       $styleCIConfigDir
      * @param string|array $finderDirs       A directory path or an array of directories for Finder
      *
-     * @return Config|\Symfony\CS\Config\Config
+     * @return Config|\Symfony\CS\Config|\Symfony\CS\Config\Config
      */
     public static function create($styleCIConfigDir = null, $finderDirs = null)
     {
         $bridge = new static($styleCIConfigDir, $finderDirs);
 
-        // PHP-CS-Fixer 1.x BC
-        if (class_exists('\Symfony\CS\Config\Config')) {
+        if (class_exists('\Symfony\CS\Config')) { // PHP-CS-Fixer >=1.12,<2.0
+            $config = \Symfony\CS\Config::create();
+        } elseif (class_exists('\Symfony\CS\Config\Config')) { // PHP-CS-Fixer 1.x
             $config = \Symfony\CS\Config\Config::create();
-        } else {
+        } else { // PHP-CS-Fixer 2.x
             $config = Config::create();
         }
 
@@ -138,16 +139,19 @@ final class ConfigBridge
     }
 
     /**
-     * @return Finder|\Symfony\CS\Finder\DefaultFinder
+     * @return Finder|\Symfony\CS\Finder|\Symfony\CS\Finder\DefaultFinder
      */
     public function getFinder()
     {
         // PHP-CS-Fixer 1.x BC
-        if (class_exists('\Symfony\CS\Finder\DefaultFinder')) {
+        if (class_exists('\Symfony\CS\Finder')) { // PHP-CS-Fixer >=1.12,<2.0
+            $finder = \Symfony\CS\Finder::create()->in($this->finderDirs);
+        } elseif (class_exists('\Symfony\CS\Finder\DefaultFinder')) { // PHP-CS-Fixer 1.x
             $finder = \Symfony\CS\Finder\DefaultFinder::create()->in($this->finderDirs);
-        } else {
+        } else { // PHP-CS-Fixer 2.x
             $finder = Finder::create()->in($this->finderDirs);
         }
+
         if (isset($this->styleCIConfig['finder'])) {
             $finderConfig = $this->styleCIConfig['finder'];
             foreach ($finderConfig as $key => $values) {
