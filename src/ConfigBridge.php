@@ -133,9 +133,14 @@ final class ConfigBridge
             $config->setRiskyAllowed($bridge->getRisky());
         }
 
-        return $config
-            ->finder($bridge->getFinder())
-        ;
+        // PHP-CS-Fixer 1.x BC
+        if (method_exists($config, 'setFinder')) {
+            $config->setFinder($bridge->getFinder());
+        } else {
+            $config->finder($bridge->getFinder());
+        }
+
+        return $config;
     }
 
     /**
