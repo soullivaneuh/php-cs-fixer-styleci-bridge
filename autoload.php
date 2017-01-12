@@ -3,7 +3,7 @@
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  *
- * @link https://github.com/composer/composer/issues/1493#issuecomment-12492276
+ * @see https://github.com/composer/composer/issues/1493#issuecomment-12492276
  */
 class CustomLoader
 {
