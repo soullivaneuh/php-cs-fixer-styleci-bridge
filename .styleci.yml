@@ -7,6 +7,9 @@ enabled:
   - php_unit_construct
   - php_unit_strict
 
+disabled:
+  - psr0
+
 finder:
   not-name:
     - "*.php.twig"
