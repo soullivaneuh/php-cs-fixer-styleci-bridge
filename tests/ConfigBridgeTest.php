@@ -24,17 +24,22 @@ class ConfigBridgeTest extends \PHPUnit_Framework_TestCase
                 'unalign_equals' => false,
             ), $config->getRules());
         } else { // PHP-CS-Fixer 1.x BC
-            $this->assertArraySubset(array(
+            $expectedFixers = array(
                 'align_double_arrow',
                 'newline_after_open_tag',
                 'ordered_use',
                 'long_array_syntax',
                 'linebreak_after_opening_tag',
-                'ordered_imports',
                 '-psr0',
                 '-unalign_double_arrow',
                 '-unalign_equals',
-            ), $config->getFixers());
+            );
+            foreach ($expectedFixers as $expectedFixer) {
+                $this->assertTrue(
+                    in_array($expectedFixer, $config->getFixers()),
+                    'The configuration must have the following fixer: "'.$expectedFixer.'".'
+                );
+            }
         }
 
         $this->assertAttributeContains('tmp', 'exclude', $config->getFinder());
