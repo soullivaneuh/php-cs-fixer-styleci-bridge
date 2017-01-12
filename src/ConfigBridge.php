@@ -54,8 +54,8 @@ final class ConfigBridge
     private $finderDirs;
 
     /**
-     * @param string|null       $styleCIConfigDir StyleCI config directory. Called script dir as default.
-     * @param string|array|null $finderDirs       A directory path or an array of directories for Finder. Called script dir as default.
+     * @param string|null       $styleCIConfigDir StyleCI config directory. Called script dir as default
+     * @param string|array|null $finderDirs       A directory path or an array of directories for Finder. Called script dir as default
      */
     public function __construct($styleCIConfigDir = null, $finderDirs = null)
     {
