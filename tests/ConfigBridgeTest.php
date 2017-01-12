@@ -5,6 +5,10 @@ namespace SLLH\StyleCIBridge\Tests;
 use SLLH\StyleCIBridge\ConfigBridge;
 
 /**
+ * @group legacy
+ * We have to add this because of refused PR: https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/2149
+ * This can be removed while dropping php-cs-fixer 1.x support.
+ *
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  */
 class ConfigBridgeTest extends \PHPUnit_Framework_TestCase
