@@ -72,7 +72,7 @@ before_script:
 
 script:
   - composer validate
-  - phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
+  - vendor/bin/simple-phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 after_script:
   - coveralls -v
