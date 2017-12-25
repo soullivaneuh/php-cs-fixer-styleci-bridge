@@ -1,5 +1,16 @@
 # PHP-CS-Fixer StyleCI bridge
 
+:warning: **This package is not maintained anymore.** :warning:
+
+**PHP-CS-Fixer v2 came with a brand new configuration structure but StyleCI decided to keep the old way.**
+
+**Because of that, it's now very hard to maintain this bridge and it's still not compatible with PHP-CS-Fixer v2.**
+
+**This is also why I decided to abandon this package and write [FlintCI](https://flintci.io),
+my own Code Review service for multiple fixers and linters without any required configuration bridge.**
+
+**You can try it [here](https://flintci.io) (flintci.io), or keep using StyleCI without this bridge.**
+
 Auto configure [PHP-CS-Fixer](http://cs.sensiolabs.org/) from [StyleCI](https://styleci.io/) config file.
 
 This library permits to generate php-cs-fixer configuration directly from your `.styleci.yml` config file.
