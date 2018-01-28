@@ -20,7 +20,7 @@
         "symfony/yaml": "^2.3 || ^3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^1.6.1",
+        "friendsofphp/php-cs-fixer": "^1.6.1 || ^2.0",
         "matthiasnoback/symfony-config-test": "^1.2",
         "symfony/phpunit-bridge": "^2.7.4 || ^3.0",
         "twig/twig": "^1.22"
